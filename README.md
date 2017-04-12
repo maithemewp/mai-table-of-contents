@@ -1,2 +1,2 @@
-# starter-plugin
+# Starter Plugin
 Starter plugin for BizBudding, Inc
