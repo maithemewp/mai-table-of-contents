@@ -3,7 +3,7 @@
  * Extended custom post types for WordPress.
  *
  * @package   ExtendedCPTs
- * @version   3.2.0
+ * @version   3.2.1
  * @author    John Blackbourn <https://johnblackbourn.com>
  * @link      https://github.com/johnbillion/extended-cpts
  * @copyright 2012-2017 John Blackbourn
@@ -73,7 +73,7 @@ function register_extended_post_type( $post_type, array $args = array(), array $
 	$cpt = new Extended_CPT( $post_type, $args, $names );
 
 	if ( is_admin() ) {
-		new Extended_CPT_Admin( $cpt, $args );
+		new Extended_CPT_Admin( $cpt, $cpt->args );
 	}
 
 	return $cpt;
