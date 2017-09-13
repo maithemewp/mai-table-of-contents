@@ -130,8 +130,7 @@ final class Website_Plugin_Setup {
 	 */
 	private function includes() {
 		foreach ( glob( WEBSITE_PLUGIN_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
-		require_once( WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/extended-cpts.php' );
-		require_once( WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/extended-taxos.php' );
+		require_once( WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/extended-cpts/extended-cpts.php' );
 	}
 
 	public function setup() {
