@@ -12,8 +12,6 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Website_Plugin_Setup' ) ) :
-
 /**
  * Main Website_Plugin_Setup Class.
  *
@@ -65,7 +63,7 @@ final class Website_Plugin_Setup {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'Website_Plugin' ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0' );
 	}
 
 	/**
@@ -77,7 +75,7 @@ final class Website_Plugin_Setup {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'Website_Plugin' ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0' );
 	}
 
 	/**
@@ -130,15 +128,30 @@ final class Website_Plugin_Setup {
 	 */
 	private function includes() {
 		foreach ( glob( WEBSITE_PLUGIN_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
-		require_once( WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/extended-cpts/extended-cpts.php' );
 	}
 
 	public function setup() {
 
-		add_action( 'init', array( $this, 'register_content_types' ) );
+		add_action( 'admin_init', array( $this, 'updater' ) );
+		add_action( 'init',       array( $this, 'register_content_types' ) );
 
 		register_activation_hook(   __FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+	}
+
+	public function updater() {
+		/**
+		 * Setup the updater.
+		 *
+		 * @uses    https://github.com/YahnisElsts/plugin-update-checker/
+		 *
+		 * @return  void
+		 */
+		// if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+		// 	require_once MAI_FAVORITES_PLUGIN_DIR . 'plugin-update-checker/plugin-update-checker.php'; // 4.3.1
+		// } else {
+		// 	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maiprowp/mai-favorites/', __FILE__, 'mai-favorites' );
+		// }
 	}
 
 	public function register_content_types() {
@@ -147,54 +160,80 @@ final class Website_Plugin_Setup {
 		 *  Custom Post Types  *
 		 ***********************/
 
-		// Testimonials
-		// register_extended_post_type( 'testimonial', array(
-		// 	'menu_icon'           => 'dashicons-format-quote',
-		// 	'public'              => false,
-		// 	'publicly_queryable'  => true,
-		// 	'show_ui'             => true,
-		// 	'show_in_menu'        => true,
-		// 	'show_in_nav_menus'   => false,
-		// 	'exclude_from_search' => true,
-		// 	'supports'            => array( 'title', 'editor', 'thumbnail' ),
-		// ), array(
-		// 	'singular' => 'Testimonial',
-		// 	'plural'   => 'Testimonials',
-		// 	'slug'     => 'testimonials'
+		// register_post_type( 'slideshow', array(
+		// 	'exclude_from_search' => false,
+		// 	'has_archive'         => true,
+		// 	'hierarchical'        => false,
+		// 	'labels'              => array(
+		// 		'name'               => _x( 'Slideshows', 'Slideshow general name',         'textdomain' ),
+		// 		'singular_name'      => _x( 'Slideshow',  'Slideshow singular name',        'textdomain' ),
+		// 		'menu_name'          => _x( 'Slideshows', 'Slideshow admin menu',           'textdomain' ),
+		// 		'name_admin_bar'     => _x( 'Slideshow',  'Slideshow add new on admin bar', 'textdomain' ),
+		// 		'add_new'            => _x( 'Add New',    'Slideshow',                      'textdomain' ),
+		// 		'add_new_item'       => __( 'Add New Slideshow',                            'textdomain' ),
+		// 		'new_item'           => __( 'New Slideshow',                                'textdomain' ),
+		// 		'edit_item'          => __( 'Edit Slideshow',                               'textdomain' ),
+		// 		'view_item'          => __( 'View Slideshow',                               'textdomain' ),
+		// 		'all_items'          => __( 'All Slideshows',                               'textdomain' ),
+		// 		'search_items'       => __( 'Search Slideshows',                            'textdomain' ),
+		// 		'parent_item_colon'  => __( 'Parent Slideshows:',                           'textdomain' ),
+		// 		'not_found'          => __( 'No Slideshows found.',                         'textdomain' ),
+		// 		'not_found_in_trash' => __( 'No Slideshows found in Trash.',                'textdomain' )
+		// 	),
+		// 	'menu_icon'          => 'dashicons-images-alt2',
+		// 	'public'             => true,
+		// 	'publicly_queryable' => true,
+		// 	'show_in_menu'       => true,
+		// 	'show_in_nav_menus'  => true,
+		// 	'show_ui'            => true,
+		// 	'rewrite'            => array( 'slug' => 'slideshows', 'with_front' => false ),
+		// 	'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'genesis-cpt-archives-settings', 'genesis-adjacent-entry-nav' ),
+		// 	// 'taxonomies'         => array( 'slideshow_cat' ),
 		// ) );
 
 		/***********************
 		 *  Custom Taxonomies  *
 		 ***********************/
 
-		// Testimonial Categories
-		// register_extended_taxonomy( 'testimonial_cat', 'testimonial', array(
-		// 	'public'            => false,
-		// 	'hierarchical'      => true,
-		// 	'query_var'         => true,
-		// 	'show_in_menu'      => true,
-		// 	'show_in_nav_menus' => false,
-		// 	'show_ui'           => true,
-		// 	'rewrite'           => array(
-		// 		'slug'       => 'testimonial-category',
-		// 		'with_front' => true,
-		// 	),
-		// ), array(
-		// 	'singular' => 'Testimonial Category',
-		// 	'plural'   => 'Testimonial Categories',
-		// ) );
+		// $labels = array(
+		// 	'name'                       => _x( 'Taxonomies', 'Taxonomy General Name', 'text_domain' ),
+		// 	'singular_name'              => _x( 'Taxonomy', 'Taxonomy Singular Name', 'text_domain' ),
+		// 	'menu_name'                  => __( 'Taxonomies', 'text_domain' ),
+		// 	'all_items'                  => __( 'All Items', 'text_domain' ),
+		// 	'parent_item'                => __( 'Parent Item', 'text_domain' ),
+		// 	'parent_item_colon'          => __( 'Parent Item:', 'text_domain' ),
+		// 	'new_item_name'              => __( 'New Item Name', 'text_domain' ),
+		// 	'add_new_item'               => __( 'Add New Item', 'text_domain' ),
+		// 	'edit_item'                  => __( 'Edit Item', 'text_domain' ),
+		// 	'update_item'                => __( 'Update Item', 'text_domain' ),
+		// 	'view_item'                  => __( 'View Item', 'text_domain' ),
+		// 	'separate_items_with_commas' => __( 'Separate items with commas', 'text_domain' ),
+		// 	'add_or_remove_items'        => __( 'Add or remove items', 'text_domain' ),
+		// 	'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
+		// 	'popular_items'              => __( 'Popular Items', 'text_domain' ),
+		// 	'search_items'               => __( 'Search Items', 'text_domain' ),
+		// 	'not_found'                  => __( 'Not Found', 'text_domain' ),
+		// );
+		// $args = array(
+		// 	'labels'                     => $labels,
+		// 	'hierarchical'               => true,
+		// 	'public'                     => true,
+		// 	'show_ui'                    => true,
+		// 	'show_admin_column'          => true,
+		// 	'show_in_nav_menus'          => true,
+		// 	'show_tagcloud'              => true,
+		// 	'meta_box_cb'                => false, // Hides metabox.
+		// );
+		// register_taxonomy( 'taxonomy', array( 'post' ), $args );
 
 	}
 
 	public function activate() {
-
 		$this->register_content_types();
-
 		flush_rewrite_rules();
 	}
 
 }
-endif; // End if class_exists check.
 
 /**
  * The main function for that returns Website_Plugin_Setup
