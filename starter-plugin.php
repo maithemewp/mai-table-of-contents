@@ -149,9 +149,9 @@ final class Website_Plugin_Setup {
 		 * @return  void
 		 */
 		// if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-		// 	require_once MAI_FAVORITES_PLUGIN_DIR . 'plugin-update-checker/plugin-update-checker.php'; // 4.3.1
+		// 	require_once WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
 		// } else {
-		// 	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maiprowp/mai-favorites/', __FILE__, 'mai-favorites' );
+		// 	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maiprowp/mai-favorites/', __FILE__, 'textdomain' );
 		// }
 	}
 
