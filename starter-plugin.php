@@ -148,11 +148,10 @@ final class Website_Plugin_Setup {
 	 * @return  void
 	 */
 	public function updater() {
-		// if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-		// 	require_once WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
-		// } else {
-		// 	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-theme-engine/', __FILE__, 'textdomain' );
-		// }
+		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+			require_once WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
+		}
+		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-theme-engine/', __FILE__, 'textdomain' );
 	}
 
 	public function register_content_types() {
