@@ -133,8 +133,8 @@ final class Website_Plugin_Setup {
 
 	public function setup() {
 
-		add_action( 'admin_init', array( $this, 'updater' ) );
-		add_action( 'init',       array( $this, 'register_content_types' ) );
+		add_action( 'plugins_loaded', array( $this, 'updater' ) );
+		add_action( 'init',           array( $this, 'register_content_types' ) );
 
 		register_activation_hook(   __FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
@@ -148,6 +148,9 @@ final class Website_Plugin_Setup {
 	 * @return  void
 	 */
 	public function updater() {
+		// if ( ! is_admin() ) {
+		// 	return;
+		// }
 		// if ( ! class_exists( 'Puc_v4_Factory' ) ) {
 		// 	require_once WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
 		// }
