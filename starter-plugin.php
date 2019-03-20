@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name:     Website - plugin
+ * Plugin Name:     Starter Plugin
  * Plugin URI:      https://website.com
- * Description:     Plugin worthy funtionality for website.com
- * Version:         1.0.0
+ * Description:     Core funtionality for website.com
+ * Version:         0.1.0
  *
  * Author:          BizBudding, Mike Hemberger
  * Author URI:      https://bizbudding.com
@@ -14,40 +14,40 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Main Website_Plugin_Setup Class.
+ * Main Starter_Plugin Class.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
-final class Website_Plugin_Setup {
+final class Starter_Plugin {
 
 	/**
-	 * @var Website_Plugin_Setup The one true Website_Plugin_Setup
-	 * @since 1.0.0
+	 * @var   Starter_Plugin The one true Starter_Plugin
+	 * @since 0.1.0
 	 */
 	private static $instance;
 
 	/**
-	 * Main Website_Plugin_Setup Instance.
+	 * Main Starter_Plugin Instance.
 	 *
-	 * Insures that only one instance of Website_Plugin_Setup exists in memory at any one
+	 * Insures that only one instance of Starter_Plugin exists in memory at any one
 	 * time. Also prevents needing to define globals all over the place.
 	 *
-	 * @since   1.0.0
+	 * @since   0.1.0
 	 * @static  var array $instance
-	 * @uses    Website_Plugin_Setup::setup_constants() Setup the constants needed.
-	 * @uses    Website_Plugin_Setup::includes() Include the required files.
-	 * @uses    Website_Plugin_Setup::setup() Activate, deactivate, etc.
-	 * @see     Website_Plugin()
-	 * @return  object | Website_Plugin_Setup The one true Website_Plugin_Setup
+	 * @uses    Starter_Plugin::setup_constants() Setup the constants needed.
+	 * @uses    Starter_Plugin::includes() Include the required files.
+	 * @uses    Starter_Plugin::hooks() Activate, deactivate, etc.
+	 * @see     Starter_Plugin()
+	 * @return  object | Starter_Plugin The one true Starter_Plugin
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			// Setup the setup
-			self::$instance = new Website_Plugin_Setup;
+			self::$instance = new Starter_Plugin;
 			// Methods
 			self::$instance->setup_constants();
 			self::$instance->includes();
-			self::$instance->setup();
+			self::$instance->hooks();
 		}
 		return self::$instance;
 	}
@@ -58,7 +58,7 @@ final class Website_Plugin_Setup {
 	 * The whole idea of the singleton design pattern is that there is a single
 	 * object therefore, we don't want the object to be cloned.
 	 *
-	 * @since   1.0.0
+	 * @since   0.1.0
 	 * @access  protected
 	 * @return  void
 	 */
@@ -70,7 +70,7 @@ final class Website_Plugin_Setup {
 	/**
 	 * Disable unserializing of the class.
 	 *
-	 * @since   1.0.0
+	 * @since   0.1.0
 	 * @access  protected
 	 * @return  void
 	 */
@@ -83,39 +83,39 @@ final class Website_Plugin_Setup {
 	 * Setup plugin constants.
 	 *
 	 * @access  private
-	 * @since   1.0.0
+	 * @since   0.1.0
 	 * @return  void
 	 */
 	private function setup_constants() {
 
 		// Plugin version.
-		if ( ! defined( 'WEBSITE_PLUGIN_VERSION' ) ) {
-			define( 'WEBSITE_PLUGIN_VERSION', '1.0.0' );
+		if ( ! defined( 'STARTER_PLUGIN_VERSION' ) ) {
+			define( 'STARTER_PLUGIN_VERSION', '0.1.0' );
 		}
 
 		// Plugin Folder Path.
-		if ( ! defined( 'WEBSITE_PLUGIN_PLUGIN_DIR' ) ) {
-			define( 'WEBSITE_PLUGIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+		if ( ! defined( 'STARTER_PLUGIN_PLUGIN_DIR' ) ) {
+			define( 'STARTER_PLUGIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		}
 
-		// Plugin Includes Path
-		if ( ! defined( 'WEBSITE_PLUGIN_INCLUDES_DIR' ) ) {
-			define( 'WEBSITE_PLUGIN_INCLUDES_DIR', WEBSITE_PLUGIN_PLUGIN_DIR . 'includes/' );
+		// Plugin Includes Path.
+		if ( ! defined( 'STARTER_PLUGIN_INCLUDES_DIR' ) ) {
+			define( 'STARTER_PLUGIN_INCLUDES_DIR', STARTER_PLUGIN_PLUGIN_DIR . 'includes/' );
 		}
 
 		// Plugin Folder URL.
-		if ( ! defined( 'WEBSITE_PLUGIN_PLUGIN_URL' ) ) {
-			define( 'WEBSITE_PLUGIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		if ( ! defined( 'STARTER_PLUGIN_PLUGIN_URL' ) ) {
+			define( 'STARTER_PLUGIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		}
 
 		// Plugin Root File.
-		if ( ! defined( 'WEBSITE_PLUGIN_PLUGIN_FILE' ) ) {
-			define( 'WEBSITE_PLUGIN_PLUGIN_FILE', __FILE__ );
+		if ( ! defined( 'STARTER_PLUGIN_PLUGIN_FILE' ) ) {
+			define( 'STARTER_PLUGIN_PLUGIN_FILE', __FILE__ );
 		}
 
 		// Plugin Base Name
-		if ( ! defined( 'WEBSITE_PLUGIN_BASENAME' ) ) {
-			define( 'WEBSITE_PLUGIN_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
+		if ( ! defined( 'STARTER_PLUGIN_BASENAME' ) ) {
+			define( 'STARTER_PLUGIN_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
 		}
 
 	}
@@ -124,19 +124,28 @@ final class Website_Plugin_Setup {
 	 * Include required files.
 	 *
 	 * @access  private
-	 * @since   1.0.0
+	 * @since   0.1.0
 	 * @return  void
 	 */
 	private function includes() {
-		foreach ( glob( WEBSITE_PLUGIN_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		foreach ( glob( STARTER_PLUGIN_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
-	public function setup() {
+	/**
+	 * Run the hooks.
+	 *
+	 * @since   0.1.0
+	 * @return  void
+	 */
+	public function hooks() {
 
-		add_action( 'plugins_loaded', array( $this, 'updater' ) );
-		add_action( 'init',           array( $this, 'register_content_types' ) );
+		// Include vendor libraries.
+		require_once __DIR__ . '/vendor/autoload.php';
 
-		register_activation_hook(   __FILE__, array( $this, 'activate' ) );
+		add_action( 'admin_init', array( $this, 'updater' ) );
+		add_action( 'init',       array( $this, 'register_content_types' ) );
+
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
 	}
 
@@ -148,15 +157,26 @@ final class Website_Plugin_Setup {
 	 * @return  void
 	 */
 	public function updater() {
-		// if ( ! is_admin() ) {
-		// 	return;
-		// }
-		// if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-		// 	require_once WEBSITE_PLUGIN_INCLUDES_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php'; // 4.4
-		// }
-		// $updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-theme-engine/', __FILE__, 'textdomain' );
+
+		// Bail if current user cannot manage plugins.
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			return;
+		}
+
+		// Bail if plugin updater is not loaded.
+		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+			return;
+		}
+
+		// Setup the updater.
+		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/bizbudding/starter-plugin/', __FILE__, 'textdomain' );
 	}
 
+	/**
+	 * Register content types.
+	 *
+	 * @return  void
+	 */
 	public function register_content_types() {
 
 		/***********************
@@ -229,6 +249,11 @@ final class Website_Plugin_Setup {
 
 	}
 
+	/**
+	 * Plugin activation.
+	 *
+	 * @return  void
+	 */
 	public function activate() {
 		$this->register_content_types();
 		flush_rewrite_rules();
@@ -237,23 +262,23 @@ final class Website_Plugin_Setup {
 }
 
 /**
- * The main function for that returns Website_Plugin_Setup
+ * The main function for that returns Starter_Plugin
  *
- * The main function responsible for returning the one true Website_Plugin_Setup
+ * The main function responsible for returning the one true Starter_Plugin
  * Instance to functions everywhere.
  *
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $plugin = Website_Plugin(); ?>
+ * Example: <?php $plugin = Starter_Plugin(); ?>
  *
- * @since 1.0.0
+ * @since 0.1.0
  *
- * @return object|Website_Plugin_Setup The one true Website_Plugin_Setup Instance.
+ * @return object|Starter_Plugin The one true Starter_Plugin Instance.
  */
-function Website_Plugin() {
-	return Website_Plugin_Setup::instance();
+function Starter_Plugin() {
+	return Starter_Plugin::instance();
 }
 
-// Get Website_Plugin Running.
-Website_Plugin();
+// Get Starter_Plugin Running.
+Starter_Plugin();
