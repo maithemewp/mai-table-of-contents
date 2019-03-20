@@ -152,6 +152,8 @@ final class Starter_Plugin {
 	/**
 	 * Setup the updater.
 	 *
+	 * composer require yahnis-elsts/plugin-update-checker
+	 *
 	 * @uses    https://github.com/YahnisElsts/plugin-update-checker/
 	 *
 	 * @return  void
