@@ -128,6 +128,9 @@ final class Starter_Plugin {
 	 * @return  void
 	 */
 	private function includes() {
+		// Include vendor libraries.
+		require_once __DIR__ . '/vendor/autoload.php';
+		// Includes.
 		foreach ( glob( STARTER_PLUGIN_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
@@ -138,9 +141,6 @@ final class Starter_Plugin {
 	 * @return  void
 	 */
 	public function hooks() {
-
-		// Include vendor libraries.
-		require_once __DIR__ . '/vendor/autoload.php';
 
 		add_action( 'admin_init', array( $this, 'updater' ) );
 		add_action( 'init',       array( $this, 'register_content_types' ) );
