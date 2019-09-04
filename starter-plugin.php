@@ -42,9 +42,9 @@ final class Starter_Plugin {
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			// Setup the setup
+			// Setup the setup.
 			self::$instance = new Starter_Plugin;
-			// Methods
+			// Methods.
 			self::$instance->setup_constants();
 			self::$instance->includes();
 			self::$instance->hooks();
