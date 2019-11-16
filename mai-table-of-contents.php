@@ -141,12 +141,7 @@ final class Mai_Table_Of_Contents {
 	 * @return  void
 	 */
 	public function hooks() {
-
 		add_action( 'admin_init', array( $this, 'updater' ) );
-		add_action( 'init',       array( $this, 'register_content_types' ) );
-
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
 	}
 
 	/**
@@ -171,94 +166,7 @@ final class Mai_Table_Of_Contents {
 		}
 
 		// Setup the updater.
-		// $updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/bizbudding/starter-plugin/', __FILE__, 'mai-table-of-contents' );
-	}
-
-	/**
-	 * Register content types.
-	 *
-	 * @return  void
-	 */
-	public function register_content_types() {
-
-		/***********************
-		 *  Custom Post Types  *
-		 ***********************/
-
-		// register_post_type( 'slideshow', array(
-		// 	'exclude_from_search' => false,
-		// 	'has_archive'         => true,
-		// 	'hierarchical'        => false,
-		// 	'labels'              => array(
-		// 		'name'               => _x( 'Slideshows', 'Slideshow general name',         'mai-table-of-contents' ),
-		// 		'singular_name'      => _x( 'Slideshow',  'Slideshow singular name',        'mai-table-of-contents' ),
-		// 		'menu_name'          => _x( 'Slideshows', 'Slideshow admin menu',           'mai-table-of-contents' ),
-		// 		'name_admin_bar'     => _x( 'Slideshow',  'Slideshow add new on admin bar', 'mai-table-of-contents' ),
-		// 		'add_new'            => _x( 'Add New',    'Slideshow',                      'mai-table-of-contents' ),
-		// 		'add_new_item'       => __( 'Add New Slideshow',                            'mai-table-of-contents' ),
-		// 		'new_item'           => __( 'New Slideshow',                                'mai-table-of-contents' ),
-		// 		'edit_item'          => __( 'Edit Slideshow',                               'mai-table-of-contents' ),
-		// 		'view_item'          => __( 'View Slideshow',                               'mai-table-of-contents' ),
-		// 		'all_items'          => __( 'All Slideshows',                               'mai-table-of-contents' ),
-		// 		'search_items'       => __( 'Search Slideshows',                            'mai-table-of-contents' ),
-		// 		'parent_item_colon'  => __( 'Parent Slideshows:',                           'mai-table-of-contents' ),
-		// 		'not_found'          => __( 'No Slideshows found.',                         'mai-table-of-contents' ),
-		// 		'not_found_in_trash' => __( 'No Slideshows found in Trash.',                'mai-table-of-contents' )
-		// 	),
-		// 	'menu_icon'          => 'dashicons-images-alt2',
-		// 	'public'             => true,
-		// 	'publicly_queryable' => true,
-		// 	'show_in_menu'       => true,
-		// 	'show_in_nav_menus'  => true,
-		// 	'show_ui'            => true,
-		// 	'rewrite'            => array( 'slug' => 'slideshows', 'with_front' => false ),
-		// 	'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'genesis-cpt-archives-settings', 'genesis-adjacent-entry-nav' ),
-		// 	// 'taxonomies'         => array( 'slideshow_cat' ),
-		// ) );
-
-		/***********************
-		 *  Custom Taxonomies  *
-		 ***********************/
-
-		// register_taxonomy( 'taxonomy', array( 'post' ), array(
-		// 	'hierarchical'               => false,
-		// 	'labels'                     => array(
-		// 		'name'                       => _x( 'Taxonomies', 'Taxonomy General Name',  'mai-table-of-contents' ),
-		// 		'singular_name'              => _x( 'Taxonomy',   'Taxonomy Singular Name', 'mai-table-of-contents' ),
-		// 		'menu_name'                  => __( 'Taxonomies',                           'mai-table-of-contents' ),
-		// 		'all_items'                  => __( 'All Items',                            'mai-table-of-contents' ),
-		// 		'parent_item'                => __( 'Parent Item',                          'mai-table-of-contents' ),
-		// 		'parent_item_colon'          => __( 'Parent Item:',                         'mai-table-of-contents' ),
-		// 		'new_item_name'              => __( 'New Item Name',                        'mai-table-of-contents' ),
-		// 		'add_new_item'               => __( 'Add New Item',                         'mai-table-of-contents' ),
-		// 		'edit_item'                  => __( 'Edit Item',                            'mai-table-of-contents' ),
-		// 		'update_item'                => __( 'Update Item',                          'mai-table-of-contents' ),
-		// 		'view_item'                  => __( 'View Item',                            'mai-table-of-contents' ),
-		// 		'separate_items_with_commas' => __( 'Separate items with commas',           'mai-table-of-contents' ),
-		// 		'add_or_remove_items'        => __( 'Add or remove items',                  'mai-table-of-contents' ),
-		// 		'choose_from_most_used'      => __( 'Choose from the most used',            'mai-table-of-contents' ),
-		// 		'popular_items'              => __( 'Popular Items',                        'mai-table-of-contents' ),
-		// 		'search_items'               => __( 'Search Items',                         'mai-table-of-contents' ),
-		// 		'not_found'                  => __( 'Not Found',                            'mai-table-of-contents' ),
-		// 	),
-		// 	'meta_box_cb'                => false, // Hides metabox.
-		// 	'public'                     => true,
-		// 	'show_admin_column'          => true,
-		// 	'show_in_nav_menus'          => true,
-		// 	'show_tagcloud'              => true,
-		// 	'show_ui'                    => true,
-		// ) );
-
-	}
-
-	/**
-	 * Plugin activation.
-	 *
-	 * @return  void
-	 */
-	public function activate() {
-		$this->register_content_types();
-		flush_rewrite_rules();
+		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-table-of-contents/', __FILE__, 'mai-table-of-contents' );
 	}
 
 }
