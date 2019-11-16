@@ -1,2 +1,2 @@
-# Starter Plugin
-Starter plugin for BizBudding, Inc
+# Mai Table Of Contents
+Mai Table Of Contents plugin for BizBudding, Inc
