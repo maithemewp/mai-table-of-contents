@@ -17,7 +17,7 @@ class Mai_TOC {
 	function enqueue_style() {
 		$debug  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
 		$suffix = $debug ? '' : '.min';
-		wp_register_style( 'mai-toc', MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css", array(), MAI_TABLE_OF_CONTENTS_VERSION );
+		wp_register_style( 'mai-table-of-contents', MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css", array(), MAI_TABLE_OF_CONTENTS_VERSION );
 	}
 
 	function register_block() {
@@ -27,7 +27,7 @@ class Mai_TOC {
 		}
 		// Register.
 		acf_register_block_type( array(
-			'name'            => 'maitoc',
+			'name'            => 'mai-table-of-contents',
 			'title'           => __( 'Mai Table of Contents', 'mai-table-of-contents' ),
 			'description'     => __( 'A table of contents block.', 'mai-table-of-contents' ),
 			'icon'            => 'list-view',
@@ -45,7 +45,7 @@ class Mai_TOC {
 	function do_toc( $block, $content = '', $is_preview = false ) {
 		$open     = get_field( 'maitoc_open' );
 		$headings = get_field( 'maitoc_headings' );
-		echo $is_preview ? '<div style="background:#f7f7f7;text-align:center;padding:24px;border:1px solid #ebe9eb;">[table of contents will display here]</div>' : $this->get_toc( $open, $headings );
+		echo $is_preview ? '<div style="background:#f7f7f7;text-align:center;padding:24px;border:1px solid #ebe9eb;">[table of contents will display here]</div>' : $this->get_toc( $open, $headings, $post_id ='', $block['align'] );
 	}
 
 	function register_shortcode( $atts ) {
@@ -65,7 +65,7 @@ class Mai_TOC {
 		return $this->get_toc( $atts['open'], $atts['headings'] );
 	}
 
-	function get_toc( $open = true, $headings = 2, $post_id = '' ) {
+	function get_toc( $open = true, $headings = 2, $post_id = '', $align = '' ) {
 		// Get post ID.
 		if ( ! $post_id ) {
 			$post_id = get_the_ID();
@@ -76,7 +76,7 @@ class Mai_TOC {
 		}
 		$content = get_the_content( null, false, $post_id );
 		$data    = $this->get_data( $content );
-		return $this->get_html( $data['matches'], $open, $headings );
+		return $this->get_html( $data['matches'], $open, $headings, $align );
 	}
 
 	function add_heading_ids( $content ) {
@@ -192,7 +192,7 @@ class Mai_TOC {
 		return $data;
 	}
 
-	function get_html( $matches, $open, $headings ) {
+	function get_html( $matches, $open, $headings, $align = '' ) {
 		// Bail if no matches.
 		if ( ! $matches ) {
 			return '';
@@ -203,10 +203,15 @@ class Mai_TOC {
 		}
 		// Enqueue styles.
 		wp_enqueue_style( 'mai-toc' );
+		// Get classes.
+		$classes = 'maitoc';
+		if ( $align && ( 'wide' === $align ) ) {
+			$classes .= ' alignwide';
+		}
 		// Get open string.
 		$open = $open ? ' open' : '';
 		// Build HTML.
-		$html = '<div class="maitoc">';
+		$html = sprintf( '<div class="%s">', $classes );
 			$html .= sprintf( '<details class="maitoc__showhide"%s>', $open );
 				$html .= '<summary class="maitoc__summary" tabindex="0">';
 					$html .= '<span class="maitoc__row">';

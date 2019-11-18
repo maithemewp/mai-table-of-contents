@@ -15,6 +15,14 @@
 	display: none;
 }
 
+.maitoc .maitoc__summary,
+.maitoc .maitoc__link,
+.maitoc .maitoc__icon {
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
 .maitoc__row {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -36,6 +44,8 @@
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	padding: 6px 16px;
+	border: solid transparent;
+	border-width: 1px 0;
 }
 
 .maitoc__showhide > .maitoc__summary::after {
@@ -43,7 +53,7 @@
 }
 
 .maitoc__showhide[open] > .maitoc__summary {
-	border-bottom: 1px solid var(--maitoc-border-color);
+	border-bottom-color: var(--maitoc-border-color);
 }
 
 .maitoc__toggle {
@@ -52,9 +62,6 @@
 	text-transform: uppercase;
 	margin-top: 2px;
 	margin-left: auto;
-	-webkit-transition: all .2s ease-in-out;
-	-o-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
 	opacity: .8;
 }
 
