@@ -92,7 +92,7 @@ class Mai_TOC {
 		}
 
 		// Bail if no toc.
-		if ( ! ( has_block( 'acf/maitoc' ) || has_shortcode( $content, 'mai_toc' ) ) ) {
+		if ( ! ( has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' ) ) ) {
 			return $content;
 		}
 
