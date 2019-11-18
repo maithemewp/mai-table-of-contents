@@ -36,7 +36,7 @@ class Mai_TOC {
 			'mode'            => 'auto',
 			'render_callback' => array( $this, 'do_toc' ),
 			'supports'        => array(
-				'align'  => array( 'wide', 'left', 'right' ),
+				'align'  => array( 'wide' ),
 				'ancher' => true,
 			),
 		) );
