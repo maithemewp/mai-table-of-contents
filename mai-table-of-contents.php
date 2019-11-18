@@ -141,7 +141,8 @@ final class Mai_Table_Of_Contents {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init', array( $this, 'updater' ) );
+		add_action( 'admin_init',             array( $this, 'updater' ) );
+		add_filter( 'acf/settings/load_json', array( $this, 'load_json' ) );
 	}
 
 	/**
@@ -167,6 +168,18 @@ final class Mai_Table_Of_Contents {
 
 		// Setup the updater.
 		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-table-of-contents/', __FILE__, 'mai-table-of-contents' );
+	}
+
+	/**
+	 * Add path to load acf json files.
+	 *
+	 * @param    array  The existing acf-json paths.
+	 *
+	 * @return   array  The modified paths.
+	 */
+	function load_json( $paths ) {
+		$paths[] = untrailingslashit( MAI_TABLE_OF_CONTENTS_PLUGIN_DIR ) . '/acf-json';
+		return $paths;
 	}
 
 }
