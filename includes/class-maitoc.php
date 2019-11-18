@@ -202,7 +202,7 @@ class Mai_TOC {
 			return;
 		}
 		// Enqueue styles.
-		wp_enqueue_style( 'mai-toc' );
+		wp_enqueue_style( 'mai-table-of-contents' );
 		// Get classes.
 		$classes = 'maitoc';
 		if ( $align && ( 'wide' === $align ) ) {
