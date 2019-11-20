@@ -14,36 +14,36 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Main Mai_Table_Of_Contents Class.
+ * Main Mai_Table_Of_Contents_Plugin Class.
  *
  * @since 0.1.0
  */
-final class Mai_Table_Of_Contents {
+final class Mai_Table_Of_Contents_Plugin {
 
 	/**
-	 * @var   Mai_Table_Of_Contents The one true Mai_Table_Of_Contents
+	 * @var   Mai_Table_Of_Contents_Plugin The one true Mai_Table_Of_Contents_Plugin
 	 * @since 0.1.0
 	 */
 	private static $instance;
 
 	/**
-	 * Main Mai_Table_Of_Contents Instance.
+	 * Main Mai_Table_Of_Contents_Plugin Instance.
 	 *
-	 * Insures that only one instance of Mai_Table_Of_Contents exists in memory at any one
+	 * Insures that only one instance of Mai_Table_Of_Contents_Plugin exists in memory at any one
 	 * time. Also prevents needing to define globals all over the place.
 	 *
 	 * @since   0.1.0
 	 * @static  var array $instance
-	 * @uses    Mai_Table_Of_Contents::setup_constants() Setup the constants needed.
-	 * @uses    Mai_Table_Of_Contents::includes() Include the required files.
-	 * @uses    Mai_Table_Of_Contents::hooks() Activate, deactivate, etc.
-	 * @see     Mai_Table_Of_Contents()
-	 * @return  object | Mai_Table_Of_Contents The one true Mai_Table_Of_Contents
+	 * @uses    Mai_Table_Of_Contents_Plugin::setup_constants() Setup the constants needed.
+	 * @uses    Mai_Table_Of_Contents_Plugin::includes() Include the required files.
+	 * @uses    Mai_Table_Of_Contents_Plugin::hooks() Activate, deactivate, etc.
+	 * @see     Mai_Table_Of_Contents_Plugin()
+	 * @return  object | Mai_Table_Of_Contents_Plugin The one true Mai_Table_Of_Contents_Plugin
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			// Setup the setup.
-			self::$instance = new Mai_Table_Of_Contents;
+			self::$instance = new Mai_Table_Of_Contents_Plugin;
 			// Methods.
 			self::$instance->setup_constants();
 			self::$instance->includes();
@@ -173,9 +173,11 @@ final class Mai_Table_Of_Contents {
 	/**
 	 * Add path to load acf json files.
 	 *
-	 * @param    array  The existing acf-json paths.
+	 * @since   0.1.0
 	 *
-	 * @return   array  The modified paths.
+	 * @param   array  The existing acf-json paths.
+	 *
+	 * @return  array  The modified paths.
 	 */
 	function load_json( $paths ) {
 		$paths[] = untrailingslashit( MAI_TABLE_OF_CONTENTS_PLUGIN_DIR ) . '/acf-json';
@@ -185,22 +187,22 @@ final class Mai_Table_Of_Contents {
 }
 
 /**
- * The main function for that returns Mai_Table_Of_Contents
+ * The main function for that returns Mai_Table_Of_Contents_Plugin
  *
- * The main function responsible for returning the one true Mai_Table_Of_Contents
+ * The main function responsible for returning the one true Mai_Table_Of_Contents_Plugin
  * Instance to functions everywhere.
  *
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $plugin = Mai_Table_Of_Contents(); ?>
+ * Example: <?php $plugin = Mai_Table_Of_Contents_Plugin(); ?>
  *
  * @since 0.1.0
  *
- * @return object|Mai_Table_Of_Contents The one true Mai_Table_Of_Contents Instance.
+ * @return object|Mai_Table_Of_Contents_Plugin The one true Mai_Table_Of_Contents_Plugin Instance.
  */
 function maitoc() {
-	return Mai_Table_Of_Contents::instance();
+	return Mai_Table_Of_Contents_Plugin::instance();
 }
 
 // Get maitoc Running.

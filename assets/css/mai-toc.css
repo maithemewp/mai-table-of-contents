@@ -68,7 +68,9 @@
 .maitoc__list,
 .maitoc__listitem,
 .entry-content .maitoc__list,
-.entry-content .maitoc__listitem {
+.entry-content .maitoc__listitem,
+.editor-styles-wrapper .maitoc__list,
+.editor-styles-wrapper .maitoc__listitem {
 	list-style: none;
 	margin: 0;
 }
