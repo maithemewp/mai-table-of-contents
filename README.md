@@ -1,5 +1,5 @@
 # Mai Table Of Contents
-Add a table of contents to the beginning of your content. Use a custom block, shortcode, or automatically display the table of contents to the beginning of your content. Auto display before posts, pages, and/or custom post types.
+Add a table of contents to the beginning of your content auto created from your the heading structure in your content. Use a custom block, shortcode, or automatically display the table of contents to the beginning of your content. Auto display before posts, pages, and/or custom post types.
 
 If the plugin is set to auto-display the table of contents, you can override the location per-post by also adding a block/shortcode manually to that post. The post will only show the manually added table of contents.
 
