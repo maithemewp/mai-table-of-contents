@@ -15,7 +15,7 @@ class Mai_Table_Of_Contents {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 		add_action( 'acf/init',           array( $this, 'register_block' ), 10, 3 );
 		add_shortcode( 'mai_toc',         array( $this, 'register_shortcode' ) );
-		add_filter( 'the_content',        array( $this, 'add_heading_ids' ) );
+		add_filter( 'the_content',        array( $this, 'get_the_content' ) );
 	}
 
 	function enqueue_style() {
@@ -35,7 +35,7 @@ class Mai_Table_Of_Contents {
 			'icon'            => 'list-view',
 			'category'        => 'formatting',
 			'keywords'        => array( 'table', 'contents', 'toc' ),
-			'mode'            => 'auto',
+			'mode'            => 'preview',
 			'multiple'        => false,
 			'enqueue_style'   => MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->get_suffix()}.css",
 			'render_callback' => array( $this, 'do_toc' ),
@@ -48,8 +48,8 @@ class Mai_Table_Of_Contents {
 
 	function do_toc( $block, $content = '', $is_preview = false ) {
 		$custom   = get_field( 'maitoc_custom' );
-		$open     = $custom ? get_field( 'maitoc_open' ) : get_field( 'maitoc_open', 'options' );
-		$headings = $custom ? get_field( 'maitoc_headings' ) : get_field( 'maitoc_headings', 'options' );
+		$open     = $custom ? get_field( 'maitoc_open' ) : get_option( 'options_maitoc_open', true );
+		$headings = $custom ? get_field( 'maitoc_headings' ) : get_option( 'options_maitoc_headings', 2 );
 		echo $is_preview ? $this->get_preview( $open ) : $this->get_toc( $open, $headings, $post_id ='', $block['align'] );
 	}
 
@@ -183,7 +183,7 @@ class Mai_Table_Of_Contents {
 		return $html;
 	}
 
-	function add_heading_ids( $content ) {
+	function get_the_content( $content ) {
 
 		// Bail if not singular content.
 		if ( ! is_singular() ) {
@@ -210,7 +210,7 @@ class Mai_Table_Of_Contents {
 		$data = $this->get_data( $content );
 
 		$toc = '';
-		if ( $displayed ) {
+		if ( $displayed && ! ( has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' ) ) ) {
 			$open     = get_field( 'maitoc_open', 'options' );
 			$headings = get_field( 'maitoc_headings', 'options' );
 			$toc      = $this->get_toc( $open, $headings );
