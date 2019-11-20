@@ -115,7 +115,7 @@ final class Mai_Table_Of_Contents_Plugin {
 
 		// Plugin Base Name
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_BASENAME' ) ) {
-			define( 'MAI_TABLE_OF_CONTENTS_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
+			define( 'MAI_TABLE_OF_CONTENTS_BASENAME', plugin_basename( __FILE__ ) );
 		}
 
 	}
@@ -143,6 +143,11 @@ final class Mai_Table_Of_Contents_Plugin {
 	public function hooks() {
 		add_action( 'admin_init',             array( $this, 'updater' ) );
 		add_filter( 'acf/settings/load_json', array( $this, 'load_json' ) );
+		// Admin only.
+		if ( ! is_admin() ) {
+			return;
+		}
+		add_filter( 'plugin_action_links_' . MAI_TABLE_OF_CONTENTS_BASENAME, array( $this, 'add_settings_link' ), 10, 4 );
 	}
 
 	/**
@@ -184,6 +189,22 @@ final class Mai_Table_Of_Contents_Plugin {
 		return $paths;
 	}
 
+	/**
+	 * Return the plugin action links.  This will only be called if the plugin is active.
+	 *
+	 * @since   0.2.0
+	 *
+	 * @param   array   $actions      Associative array of action names to anchor tags
+	 * @param   string  $plugin_file  Plugin file name, ie my-plugin/my-plugin.php
+	 * @param   array   $plugin_data  Associative array of plugin data from the plugin file headers
+	 * @param   string  $context      Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
+	 *
+	 * @return  array  associative array of plugin action links
+	 */
+	function add_settings_link( $actions, $plugin_file, $plugin_data, $context ) {
+		$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=mai-table-of-contents' ), __( 'Settings', 'mai-table-of-contents' ) );
+		return $actions;
+	}
 }
 
 /**
