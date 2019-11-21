@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+* Changed: "Click to Show" text to just "Show" for better mobile experience.
+* Changed: Made more strings translation ready.
+
 ## 0.2.0
 * Added: Settings page.
 * Added: Link to settings page from plugin list.
