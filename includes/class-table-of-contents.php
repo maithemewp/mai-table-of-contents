@@ -77,8 +77,8 @@ class Mai_Table_Of_Contents {
 				$html .= '<summary class="maitoc__summary">';
 					$html .= '<span class="maitoc__row">';
 						$html .= sprintf( '<span class="maitoc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
-						$html .= '<span class="maitoc__col maitoc__toggle maitoc--close">[Hide]</span>';
-						$html .= '<span class="maitoc__col maitoc__toggle maitoc--open">[Click to Show]</span>';
+						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
 					$html .= '</span>';
 				$html .= '</summary>';
 				$html .= '<ul class="maitoc__list maitoc--parent">';
@@ -150,7 +150,7 @@ class Mai_Table_Of_Contents {
 					$html .= '<span class="maitoc__row">';
 						$html .= sprintf( '<span class="maitoc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
 						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
-						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--open">[%s]</span>', __( 'Click to Show', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
 					$html .= '</span>';
 				$html .= '</summary>';
 				$html .= '<ul class="maitoc__list maitoc--parent">';
