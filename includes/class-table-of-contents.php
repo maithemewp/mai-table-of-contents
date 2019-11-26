@@ -47,7 +47,8 @@ class Mai_Table_Of_Contents {
 	}
 
 	function do_toc( $block, $content = '', $is_preview = false ) {
-		$custom   = get_field( 'maitoc_custom' );
+		$custom   = get_field( 'mai-toc_custom' );
+		vd( $custom );
 		$open     = $custom ? get_field( 'maitoc_open' ) : get_option( 'options_maitoc_open', true );
 		$headings = $custom ? get_field( 'maitoc_headings' ) : get_option( 'options_maitoc_headings', 2 );
 		echo $is_preview ? $this->get_preview( $open ) : $this->get_toc( $open, $headings, $post_id ='', $block['align'] );
@@ -72,37 +73,37 @@ class Mai_Table_Of_Contents {
 
 	function get_preview( $open ) {
 		$open = $open ? ' open' : '';
-		$html = '<div class="maitoc">';
-			$html .= sprintf( '<details class="maitoc__showhide"%s>', $open );
-				$html .= '<summary class="maitoc__summary">';
-					$html .= '<span class="maitoc__row">';
-						$html .= sprintf( '<span class="maitoc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
-						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
-						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
+		$html = '<div class="mai-toc">';
+			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $open );
+				$html .= '<summary class="mai-toc__summary">';
+					$html .= '<span class="mai-toc__row">';
+						$html .= sprintf( '<span class="mai-toc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="mai-toc__col mai-toc__toggle mai-toc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="mai-toc__col mai-toc__toggle mai-toc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
 					$html .= '</span>';
 				$html .= '</summary>';
-				$html .= '<ul class="maitoc__list maitoc--parent">';
-					$html .= '<li class="maitoc__listitem">';
-						$html .= sprintf( '<a class="maitoc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
+				$html .= '<ul class="mai-toc__list mai-toc--parent">';
+					$html .= '<li class="mai-toc__listitem">';
+						$html .= sprintf( '<a class="mai-toc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
 					$html .= '</li>';
-					$html .= '<li class="maitoc__listitem">';
-						$html .= '<details class="maitoc__details">';
-							$html .= '<summary class="maitoc__summary">';
-								$html .= '<span class="maitoc__row">';
-									$html .= sprintf( '<a class="maitoc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
-									$html .= '<span role="button" class="maitoc__icon maitoc--open">+</span>';
-									$html .= '<span role="button" class="maitoc__icon maitoc--close">−</span>';
+					$html .= '<li class="mai-toc__listitem">';
+						$html .= '<details class="mai-toc__details">';
+							$html .= '<summary class="mai-toc__summary">';
+								$html .= '<span class="mai-toc__row">';
+									$html .= sprintf( '<a class="mai-toc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
+									$html .= '<span role="button" class="mai-toc__icon mai-toc--open">+</span>';
+									$html .= '<span role="button" class="mai-toc__icon mai-toc--close">−</span>';
 								$html .= '</span>';
 							$html .= '</summary>';
-							$html .= '<ul class="maitoc__list maitoc--child">';
-								$html .= '<li class="maitoc__listitem">';
-									$html .= sprintf( '<a class="maitoc__link scroll-to" href="#">%s</a>', __( 'Example Nested Heading', 'mai-table-of-contents' ) );
+							$html .= '<ul class="mai-toc__list mai-toc--child">';
+								$html .= '<li class="mai-toc__listitem">';
+									$html .= sprintf( '<a class="mai-toc__link scroll-to" href="#">%s</a>', __( 'Example Nested Heading', 'mai-table-of-contents' ) );
 								$html .= '</li>';
 							$html .= '</ul>';
 						$html .= '</details>';
 					$html .= '</li>';
-					$html .= '<li class="maitoc__listitem">';
-						$html .= sprintf( '<a class="maitoc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
+					$html .= '<li class="mai-toc__listitem">';
+						$html .= sprintf( '<a class="mai-toc__link scroll-to" href="#">%s</a>', __( 'Example Heading', 'mai-table-of-contents' ) );
 					$html .= '</li>';
 				$html .= '</ul>';
 			$html .= '</details>';
@@ -137,7 +138,7 @@ class Mai_Table_Of_Contents {
 		// Enqueue styles.
 		wp_enqueue_style( 'mai-table-of-contents' );
 		// Get classes.
-		$classes = 'maitoc';
+		$classes = 'mai-toc';
 		if ( $align && ( 'wide' === $align ) ) {
 			$classes .= ' alignwide';
 		}
@@ -145,30 +146,30 @@ class Mai_Table_Of_Contents {
 		$open = $open ? ' open' : '';
 		// Build HTML.
 		$html = sprintf( '<div class="%s">', $classes );
-			$html .= sprintf( '<details class="maitoc__showhide"%s>', $open );
-				$html .= '<summary class="maitoc__summary" tabindex="0">';
-					$html .= '<span class="maitoc__row">';
-						$html .= sprintf( '<span class="maitoc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
-						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
-						$html .= sprintf( '<span class="maitoc__col maitoc__toggle maitoc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
+			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $open );
+				$html .= '<summary class="mai-toc__summary" tabindex="0">';
+					$html .= '<span class="mai-toc__row">';
+						$html .= sprintf( '<span class="mai-toc__col">%s</span>', __( 'Table of Contents', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="mai-toc__col mai-toc__toggle mai-toc--close">[%s]</span>', __( 'Hide', 'mai-table-of-contents' ) );
+						$html .= sprintf( '<span class="mai-toc__col mai-toc__toggle mai-toc--open">[%s]</span>', __( 'Show', 'mai-table-of-contents' ) );
 					$html .= '</span>';
 				$html .= '</summary>';
-				$html .= '<ul class="maitoc__list maitoc--parent">';
+				$html .= '<ul class="mai-toc__list mai-toc--parent">';
 					foreach( $matches as $values ) {
-						$html .= '<li class="maitoc__listitem" tabindex="-1">';
-							$link = sprintf( '<a class="maitoc__link scroll-to" href="#%s" tabindex="0">%s</a>', $values['id'], $values['text'] );
+						$html .= '<li class="mai-toc__listitem" tabindex="-1">';
+							$link = sprintf( '<a class="mai-toc__link scroll-to" href="#%s" tabindex="0">%s</a>', $values['id'], $values['text'] );
 							if ( $values['children'] ) {
-								$html .= '<details class="maitoc__details">';
-									$html .= '<summary class="maitoc__summary">';
-										$html .= '<span class="maitoc__row">';
+								$html .= '<details class="mai-toc__details">';
+									$html .= '<summary class="mai-toc__summary">';
+										$html .= '<span class="mai-toc__row">';
 											$html .= $link;
-											$html .= '<span role="button" tabindex="0" class="maitoc__icon maitoc--open">&#x2b;</span>';
-											$html .= '<span role="button" tabindex="0" class="maitoc__icon maitoc--close">&#x2212;</span>';
+											$html .= '<span role="button" tabindex="0" class="mai-toc__icon mai-toc--open">&#x2b;</span>';
+											$html .= '<span role="button" tabindex="0" class="mai-toc__icon mai-toc--close">&#x2212;</span>';
 										$html .= '</span>';
 									$html .= '</summary>';
-									$html .= '<ul class="maitoc__list maitoc--child">';
+									$html .= '<ul class="mai-toc__list mai-toc--child">';
 										foreach( $values['children'] as $child ) {
-											$html .= sprintf( '<li class="maitoc__listitem" tabindex="-1"><a class="maitoc__link scroll-to" href="#%s" tabindex="0">%s</a></li>', $child['id'], $child['text'] );
+											$html .= sprintf( '<li class="mai-toc__listitem" tabindex="-1"><a class="mai-toc__link scroll-to" href="#%s" tabindex="0">%s</a></li>', $child['id'], $child['text'] );
 										}
 									$html .= '</ul>';
 								$html .= '</details>';

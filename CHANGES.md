@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2
+* Fixed: Marker arrow was still displaying in Firefox.
+
 ## 0.2.1
 * Changed: "Click to Show" text to just "Show" for better mobile experience.
 * Changed: Made more strings translation ready.
