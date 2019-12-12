@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3
+* Fixed: Undefined function.
+
 ## 0.2.2
 * Fixed: Marker arrow was still displaying in Firefox.
 
