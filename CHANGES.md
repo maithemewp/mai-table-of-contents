@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4 (3/3/20)
+* Fixed: No longer runs on front page.
+* Fixed: Empty content error when attempting to calculate headings when there is no content in a post.
+
 ## 0.2.3
 * Fixed: Undefined function.
 

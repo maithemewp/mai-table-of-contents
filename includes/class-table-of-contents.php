@@ -186,7 +186,7 @@ class Mai_Table_Of_Contents {
 	function get_the_content( $content ) {
 
 		// Bail if not singular content.
-		if ( ! is_singular() ) {
+		if ( ! is_singular() || is_front_page() ) {
 			return $content;
 		}
 
@@ -227,6 +227,11 @@ class Mai_Table_Of_Contents {
 			'content' => $content,
 			'matches' => array(),
 		);
+
+		// Bail if no content.
+		if ( empty( $content ) ) {
+			return $data;
+		}
 
 		// Create the new document.
 		$dom = new DOMDocument;
