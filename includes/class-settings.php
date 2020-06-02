@@ -1,7 +1,7 @@
 <?php
 
 // Get it started.
-add_action( 'plugins_loaded', function() {
+add_action( 'acf/init', function() {
 	new Mai_Table_Of_Contents_Settings;
 });
 
