@@ -83,6 +83,4 @@ class Mai_Table_Of_Contents_Settings {
 		// Send it.
 		return $field;
 	}
-
 }
-

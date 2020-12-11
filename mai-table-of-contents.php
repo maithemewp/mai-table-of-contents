@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name:     Mai Table of Contents
- * Plugin URI:      https://bizbudding.com
+ * Plugin URI:      https://bizbudding.com/products/mai-table-of-contents/
  * Description:     Automatically create a table of contents from headings in your posts.
- * Version:         0.2.5
+ * Version:         1.0.0
  *
- * Author:          BizBudding, Mike Hemberger
+ * Author:          BizBudding
  * Author URI:      https://bizbudding.com
  */
 
@@ -90,7 +90,7 @@ final class Mai_Table_Of_Contents_Plugin {
 
 		// Plugin version.
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_VERSION' ) ) {
-			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '0.2.5' );
+			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.0.0' );
 		}
 
 		// Plugin Folder Path.
@@ -143,10 +143,12 @@ final class Mai_Table_Of_Contents_Plugin {
 	public function hooks() {
 		add_action( 'admin_init',             array( $this, 'updater' ) );
 		add_filter( 'acf/settings/load_json', array( $this, 'load_json' ) );
+
 		// Admin only.
 		if ( ! is_admin() ) {
 			return;
 		}
+
 		add_filter( 'plugin_action_links_' . MAI_TABLE_OF_CONTENTS_BASENAME, array( $this, 'add_settings_link' ), 10, 4 );
 	}
 
@@ -173,6 +175,11 @@ final class Mai_Table_Of_Contents_Plugin {
 
 		// Setup the updater.
 		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-table-of-contents/', __FILE__, 'mai-table-of-contents' );
+
+		// Maybe set github api token.
+		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
+			$updater->setAuthentication( MAI_GITHUB_API_TOKEN );
+		}
 	}
 
 	/**
