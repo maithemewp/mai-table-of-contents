@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Table of Contents
  * Plugin URI:      https://bizbudding.com/products/mai-table-of-contents/
  * Description:     Automatically create a table of contents from headings in your posts.
- * Version:         1.0.0
+ * Version:         1.0.1
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -90,7 +90,7 @@ final class Mai_Table_Of_Contents_Plugin {
 
 		// Plugin version.
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_VERSION' ) ) {
-			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.0.0' );
+			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.0.1' );
 		}
 
 		// Plugin Folder Path.
@@ -179,6 +179,16 @@ final class Mai_Table_Of_Contents_Plugin {
 		// Maybe set github api token.
 		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
 			$updater->setAuthentication( MAI_GITHUB_API_TOKEN );
+		}
+
+		// Add icons for Dashboard > Updates screen.
+		if ( function_exists( 'mai_get_updater_icons' ) && $icons = mai_get_updater_icons() ) {
+			$updater->addResultFilter(
+				function ( $info ) use ( $icons ) {
+					$info->icons = $icons;
+					return $info;
+				}
+			);
 		}
 	}
 
