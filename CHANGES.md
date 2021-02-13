@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 (2/13/21)
+* Added: Mai logo icon to updater.
+
+## 1.0.0 (12/11/20)
+* Official release.
+
 ## 0.2.5 (6/2/20)
 * Fixed: Settings page not loading in some instances.
 
