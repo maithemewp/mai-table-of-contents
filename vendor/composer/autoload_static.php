@@ -10,9 +10,14 @@ class ComposerStaticInit1782162e12bcf11213202aa27e2616cd
         '689b08b7620712b04324ecd7ed167c6b' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v4p10.php',
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->classMap = ComposerStaticInit1782162e12bcf11213202aa27e2616cd::$classMap;
 
         }, null, ClassLoader::class);
     }
