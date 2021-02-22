@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0 (2/22/21)
+* Added: Support for Mai Theme v2 colors and spacing.
+
 ## 1.0.1 (2/13/21)
 * Added: Mai logo icon to updater.
 
