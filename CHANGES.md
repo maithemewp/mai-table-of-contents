@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 (2/24/21)
+* Fixed: Custom property order to allow easier overrides for toc colors.
+
 ## 1.1.0 (2/22/21)
 * Added: Support for Mai Theme v2 colors and spacing.
 
