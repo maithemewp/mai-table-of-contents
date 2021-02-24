@@ -1,8 +1,9 @@
 .mai-toc {
+	margin-bottom: var(--spacing-lg, 24px);
+	color: var(--mai-toc-color, inherit);
 	font-family: var(--heading-font-family, inherit);
 	font-size: 90%;
-	margin-bottom: var(--spacing-lg, 24px);
-	border: var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb));
+	border: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
 }
 
 .mai-toc__summary::-webkit-details-marker,
@@ -46,7 +47,7 @@
 }
 
 .mai-toc__showhide[open] > .mai-toc__summary {
-	border-bottom: var(--border, 1px solid var(--mai-toc-border-color));
+	border-bottom: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
 }
 
 .mai-toc__toggle {
@@ -71,7 +72,7 @@
 .mai-toc__listitem,
 .entry-content .mai-toc__listitem {
 	padding: 0;
-	border-bottom: var(--border, 1px solid var(--mai-toc-border-color));
+	border-bottom: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
 }
 
 .mai-toc__listitem:last-child {
@@ -82,7 +83,7 @@
 .mai-toc--parent > .mai-toc__listitem,
 .mai-toc--parent > .mai-toc__listitem .mai-toc__details,
 .mai-toc--parent > .mai-toc__listitem .mai-toc__summary {
-	background: var(--color-alt, var(--mai-toc-background-color, #f7f7f7));
+	background: var(--mai-toc-background-color, var(--color-alt, #f7f7f7));
 }
 
 .mai-toc--child .mai-toc__listitem,
@@ -111,11 +112,11 @@
 	width: 100%;
 	height: auto;
 	max-width: 42px;
-	border-left: var(--border, 1px solid var(--mai-toc-border-color));
+	border-left: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
 }
 
 .mai-toc__details[open] .mai-toc__row {
-	border-bottom: var(--border, 1px solid var(--mai-toc-border-color));
+	border-bottom: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
 }
 
 .mai-toc__showhide[open] > .mai-toc__summary ~ *,
