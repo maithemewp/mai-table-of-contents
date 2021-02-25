@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2 (2/25/21)
+* Fixed: TOC list spacing in the editor.
+
 ## 1.1.1 (2/24/21)
 * Fixed: Custom property order to allow easier overrides for toc colors.
 
