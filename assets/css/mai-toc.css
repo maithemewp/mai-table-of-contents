@@ -4,6 +4,9 @@
 	font-family: var(--heading-font-family, inherit);
 	font-size: 90%;
 	border: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
+	--list-padding: 0;
+	--list-margin: 0;
+	--list-item-margin: 0;
 }
 
 .mai-toc__summary::-webkit-details-marker,
