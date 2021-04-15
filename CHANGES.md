@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.3 (4/14/21)
+* Fixed: TOC heading hover color now inherits primary color in Mai Theme v2.
+
 ## 1.1.2 (2/25/21)
 * Fixed: TOC list spacing in the editor.
 

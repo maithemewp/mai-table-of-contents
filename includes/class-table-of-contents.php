@@ -200,9 +200,10 @@ class Mai_Table_Of_Contents {
 
 		// Check if auto-displayed.
 		$displayed  = in_array( get_post_type(), (array) $post_types );
+		$has_toc    = has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' );
 
 		// Bail if no toc.
-		if ( ! ( $displayed || has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' ) ) ) {
+		if ( ! ( $displayed || $has_toc ) ) {
 			return $content;
 		}
 
@@ -210,7 +211,8 @@ class Mai_Table_Of_Contents {
 		$data = $this->get_data( $content );
 
 		$toc = '';
-		if ( $displayed && ! ( has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' ) ) ) {
+
+		if ( $displayed && ! $has_toc ) {
 			$open     = get_field( 'maitoc_open', 'options' );
 			$headings = get_field( 'maitoc_headings', 'options' );
 			$toc      = $this->get_toc( $open, $headings );
@@ -234,13 +236,13 @@ class Mai_Table_Of_Contents {
 		}
 
 		// Create the new document.
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 
 		// Modify state.
 		$libxml_previous_state = libxml_use_internal_errors( true );
 
 		// Load the content in the document HTML.
-		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', "UTF-8" ) );
+		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
 
 		// Handle errors.
 		libxml_clear_errors();
@@ -256,56 +258,67 @@ class Mai_Table_Of_Contents {
 			return $data;
 		}
 
+		$xpath = new DOMXPath( $dom );
+
 		// Set empty variables.
 		$anchors = array();
 
 		// Loop through h2s.
 		foreach ( $h2s as $index => $node ) {
-
 			$text = $node->nodeValue;
 			$slug = $node->getAttribute( 'id' );
+
 			if ( ! $slug ) {
 				$i    = 2;
 				$slug = sanitize_title( $text );
+
 				while ( false !== in_array( $slug, $anchors ) ) {
 					$slug = sprintf( '%s-%d', $slug, $i++ );
 				}
+
 				$node->setAttribute( 'id', $slug );
 			}
 
 			$anchors[] = $slug;
+
 			$data['matches'][ $index ] = array(
 				'id'       => $slug,
 				'text'     => $text,
 				'children' => array(),
 			);
 
+			$h3s = [];
+
 			// Loop through next sibling elements, and stop at the next h2.
 			while( ( $node = $node->nextSibling ) && ( 'h2' !== $node->nodeName ) ) {
 
-				// Skip if not an h3.
-				if ( 'h3' !== $node->nodeName ) {
+				$h3s = $xpath->query( 'descendant-or-self::h3', $node );
+
+				if ( ! $h3s->length ) {
 					continue;
 				}
 
-				$text = $node->nodeValue;
-				$slug = $node->getAttribute( 'id' );
+				foreach ( $h3s as $h3 ) {
+					$text = $h3->nodeValue;
+					$slug = $h3->getAttribute( 'id' );
 
-				if ( ! $slug ) {
-					$i    = 2;
-					$text = $node->nodeValue;
-					$slug = sanitize_title( $text );
-					while ( false !== in_array( $slug, $anchors ) ) {
-						$slug = sprintf( '%s-%d', $slug, $i++ );
+					if ( ! $slug ) {
+						$i    = 2;
+						$text = $h3->nodeValue;
+						$slug = sanitize_title( $text );
+						while ( false !== in_array( $slug, $anchors ) ) {
+							$slug = sprintf( '%s-%d', $slug, $i++ );
+						}
+						$h3->setAttribute( 'id', $slug );
 					}
-					$node->setAttribute( 'id', $slug );
-				}
 
-				$anchors[] = $slug;
-				$data['matches'][ $index ]['children'][] = array(
-					'id'   => $slug,
-					'text' => $text,
-				);
+					$anchors[] = $slug;
+
+					$data['matches'][ $index ]['children'][] = array(
+						'id'   => $slug,
+						'text' => $text,
+					);
+				}
 			}
 		}
 
