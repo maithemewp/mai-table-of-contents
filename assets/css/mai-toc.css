@@ -36,7 +36,7 @@
 }
 
 .mai-toc__showhide > .mai-toc__summary {
-	padding: var(--spacing-xs, 6px) var(--spacing-md, 16px);
+	padding: var(--spacing-xs, 6px) 0;
 	font-size: 0.9em;
 	letter-spacing: 1px;
 	text-transform: uppercase;
@@ -106,9 +106,9 @@
 .mai-toc__link,
 .entry-content .mai-toc__link {
 	display: block;
+	padding: var(--spacing-xs, 6px) 0;
 	flex: 1 1 auto;
 	max-width: 100%;
-	padding: var(--spacing-xs, 6px) var(--spacing-md, 16px);
 	color: var(--color-heading, #323232);
 	text-decoration: none;
 	border: none;
@@ -128,6 +128,10 @@
 
 .mai-toc-default {
 	border: var(--mai-toc-border, var(--border, 1px solid var(--mai-toc-border-color, #ebe9eb)));
+}
+
+.mai-toc-default .mai-toc__showhide > .mai-toc__summary {
+	padding: var(--spacing-xs, 6px) var(--spacing-md, 16px);
 }
 
 .mai-toc-default .mai-toc__showhide[open] > .mai-toc__summary {
@@ -151,6 +155,11 @@
 .mai-toc-default .mai-toc--child .mai-toc__details,
 .mai-toc-default .mai-toc--child .mai-toc__summary {
 	background: var(--color-white, #fff);
+}
+
+.mai-toc-default .mai-toc__link,
+.mai-toc-default .entry-content .mai-toc__link {
+	padding: var(--spacing-xs, 6px) var(--spacing-md, 16px);
 }
 
 .mai-toc-default .mai-toc__details .mai-toc__summary .mai-toc__icon {
