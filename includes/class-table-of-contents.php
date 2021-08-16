@@ -389,7 +389,6 @@ class Mai_Table_Of_Contents {
 		];
 
 		$labels = apply_filters( 'mai_table_of_contents_labels', $labels );
-		$labels = array_map( 'wp_kses_post', $labels );
 
 		return $labels;
 	}
