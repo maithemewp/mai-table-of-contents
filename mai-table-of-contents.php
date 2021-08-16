@@ -141,8 +141,7 @@ final class Mai_Table_Of_Contents_Plugin {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init',             [ $this, 'updater' ] );
-		add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
+		add_action( 'admin_init', [ $this, 'updater' ] );
 
 		// Admin only.
 		if ( ! is_admin() ) {
@@ -162,7 +161,6 @@ final class Mai_Table_Of_Contents_Plugin {
 	 * @return  void
 	 */
 	public function updater() {
-
 		// Bail if current user cannot manage plugins.
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return;
@@ -190,20 +188,6 @@ final class Mai_Table_Of_Contents_Plugin {
 				}
 			);
 		}
-	}
-
-	/**
-	 * Add path to load acf json files.
-	 *
-	 * @since   0.1.0
-	 *
-	 * @param   array  The existing acf-json paths.
-	 *
-	 * @return  array  The modified paths.
-	 */
-	function load_json( $paths ) {
-		$paths[] = untrailingslashit( MAI_TABLE_OF_CONTENTS_PLUGIN_DIR ) . '/acf-json';
-		return $paths;
 	}
 
 	/**
