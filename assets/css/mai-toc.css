@@ -25,6 +25,7 @@
 .mai-toc__row {
 	display: flex;
 	flex-wrap: nowrap;
+	align-items: center;
 }
 
 .mai-toc__row .mai-toc__col:first-child {
@@ -100,15 +101,16 @@
 
 .mai-toc__showhide[open] > .mai-toc__summary ~ *,
 .mai-toc__details[open] > .mai-toc__summary ~ * {
+	-webkit-animation: mai-tocfade 0.3s ease-in-out;
 	animation: mai-tocfade 0.3s ease-in-out;
 }
 
 .mai-toc__link,
 .entry-content .mai-toc__link {
 	display: block;
-	padding: var(--spacing-xs, 6px) 0;
 	flex: 1 1 auto;
 	max-width: 100%;
+	padding: var(--spacing-xs, 6px) 0;
 	color: var(--color-heading, #323232);
 	text-decoration: none;
 	border: none;
