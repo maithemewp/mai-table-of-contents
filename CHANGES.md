@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 (9/15/21)
+* Added: New style setting with "Minimum" option.
+* Added: [Developers] New `mai_table_of_contents_labels` filter to change the open/close and heading text.
+* Changed: Allow html in title/label.
+* Changed: Settings and block fields are now registered via PHP.
+
 ## 1.1.3 (4/14/21)
 * Fixed: TOC heading hover color now inherits primary color in Mai Theme v2.
 
