@@ -20,6 +20,8 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
@@ -30,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e61ed799a17cf6841c2653119010a0e4b79532df',
+    'reference' => '7984cde4d8c61897fd40d0f2822dec0d3c2cf0ca',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,16 +44,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e61ed799a17cf6841c2653119010a0e4b79532df',
+      'reference' => '7984cde4d8c61897fd40d0f2822dec0d3c2cf0ca',
     ),
     'yahnis-elsts/plugin-update-checker' => 
     array (
-      'pretty_version' => 'v4.10',
-      'version' => '4.10.0.0',
+      'pretty_version' => 'v4.11',
+      'version' => '4.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0edd15f67822464af8a23285ce367b30d515a855',
+      'reference' => '3155f2d3f1ca5e7ed3f25b256f020e370515af43',
     ),
   ),
 );
@@ -70,7 +72,6 @@ $packages = array();
 foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
-
 
 if (1 === \count($packages)) {
 return $packages[0];
@@ -235,9 +236,23 @@ return $installed[0]['root'];
 
 
 
+
 public static function getRawData()
 {
+@trigger_error('getRawData only returns the first dataset loaded, which may not be what you expect. Use getAllRawData() instead which returns all datasets for all autoloaders present in the process.', E_USER_DEPRECATED);
+
 return self::$installed;
+}
+
+
+
+
+
+
+
+public static function getAllRawData()
+{
+return self::getInstalled();
 }
 
 
@@ -267,6 +282,7 @@ self::$installedByVendor = array();
 
 
 
+
 private static function getInstalled()
 {
 if (null === self::$canGetVendors) {
@@ -276,7 +292,6 @@ self::$canGetVendors = method_exists('Composer\Autoload\ClassLoader', 'getRegist
 $installed = array();
 
 if (self::$canGetVendors) {
-
 foreach (ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
 if (isset(self::$installedByVendor[$vendorDir])) {
 $installed[] = self::$installedByVendor[$vendorDir];
