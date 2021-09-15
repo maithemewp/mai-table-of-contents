@@ -83,13 +83,14 @@ function maitoc_add_field_groups() {
 					'message' => __( 'Use custom settings', 'mai-table-of-contents' ),
 				],
 				[
-					'key'               => 'field_5dd5a09a56ef9',
-					'label'             => __( 'Load Open/Closed', 'mai-table-of-contents' ),
-					'name'              => 'maitoc_open',
-					'type'              => 'true_false',
-					'instructions'      => __( 'Load the table of contents open by default', 'mai-table-of-contents' ),
-					'message'           => __( 'Load open', 'mai-table-of-contents' ),
-					'default_value'     => 1,
+					'key'           => 'field_5dd5a09a56ef9',
+					'label'         => __( 'Load Open/Closed', 'mai-table-of-contents' ),
+					'name'          => 'maitoc_open',
+					'type'          => 'true_false',
+					'default_value' => 1,
+					'ui'            => 1,
+					'ui_off_text'   => __( 'Closed', 'mai-table-of-contents' ),
+					'ui_on_text'    => __( 'Open', 'mai-table-of-contents' ),
 					'conditional_logic' => [
 						[
 							[
