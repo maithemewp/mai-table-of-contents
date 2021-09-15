@@ -48,7 +48,7 @@ class Mai_Table_Of_Contents {
 	}
 
 	function do_toc( $block, $content = '', $is_preview = false ) {
-		$custom = get_field( 'mai-toc_custom' );
+		$custom = get_field( 'maitoc_custom' );
 		$args   = [
 			'open'     => $custom ? get_field( 'maitoc_open' ) : get_option( 'options_maitoc_open', true ),
 			'headings' => $custom ? get_field( 'maitoc_headings' ) : get_option( 'options_maitoc_headings', 2 ),
