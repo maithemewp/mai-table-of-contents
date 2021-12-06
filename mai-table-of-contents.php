@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:     Mai Table of Contents
- * Plugin URI:      https://bizbudding.com/products/mai-table-of-contents/
+ * Plugin URI:      https://bizbudding.com/mai-design-pack/
  * Description:     Automatically create a table of contents from headings in your posts.
  * Version:         1.2.0
  *

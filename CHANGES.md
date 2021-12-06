@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 (12/6/21)
+* Changed: CSS is now loaded on demand right before the table of contents.
+* Changed: Settings now appear under Mai Theme menu in Dashboard.
+
 ## 1.2.0 (9/15/21)
 * Added: New style setting with "Minimum" option.
 * Added: [Developers] New `mai_table_of_contents_labels` filter to change the open/close and heading text.
