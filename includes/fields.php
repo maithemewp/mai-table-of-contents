@@ -5,12 +5,12 @@ defined( 'ABSPATH' ) || die;
 
 add_action( 'acf/init', 'maitoc_add_field_groups' );
 /**
- * Add TOC settings.
+ * Adds TOC settings.
  *
  * Location and choices added later via acf filters so
  * get_post_types() and other functions are available.
  *
- * @since TBD
+ * @since 0.1.0
  *
  * @return void
  */

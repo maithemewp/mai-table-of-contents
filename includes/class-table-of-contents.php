@@ -1,5 +1,8 @@
 <?php
 
+// Prevent direct file access.
+defined( 'ABSPATH' ) || die;
+
 // Get it started.
 add_action( 'plugins_loaded', function() {
 	new Mai_Table_Of_Contents;
@@ -11,17 +14,26 @@ class Mai_Table_Of_Contents {
 		$this->hooks();
 	}
 
+	/**
+	 * Runs hooks.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
 	function hooks() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ] );
-		add_action( 'acf/init',           [ $this, 'register_block' ], 10, 3 );
-		add_shortcode( 'mai_toc',         [ $this, 'register_shortcode' ] );
-		add_filter( 'the_content',        [ $this, 'get_the_content' ] );
+		add_action( 'acf/init',    [ $this, 'register_block' ], 10, 3 );
+		add_shortcode( 'mai_toc',  [ $this, 'register_shortcode' ] );
+		add_filter( 'the_content', [ $this, 'get_the_content' ] );
 	}
 
-	function enqueue_style() {
-		wp_register_style( 'mai-table-of-contents', MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->get_suffix()}.css", [], MAI_TABLE_OF_CONTENTS_VERSION );
-	}
-
+	/**
+	 * Register block.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
 	function register_block() {
 		if ( ! function_exists( 'acf_register_block_type' ) ) {
 			return;
@@ -37,7 +49,6 @@ class Mai_Table_Of_Contents {
 				'keywords'        => [ 'table', 'contents', 'toc' ],
 				'mode'            => 'preview',
 				'multiple'        => false,
-				'enqueue_style'   => MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->get_suffix()}.css",
 				'render_callback' => [ $this, 'do_toc' ],
 				'supports'        => [
 					'align'  => [ 'wide' ],
@@ -47,6 +58,13 @@ class Mai_Table_Of_Contents {
 		);
 	}
 
+	/**
+	 * Renders table of contents.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
 	function do_toc( $block, $content = '', $is_preview = false ) {
 		$custom = get_field( 'maitoc_custom' );
 		$args   = [
@@ -63,10 +81,24 @@ class Mai_Table_Of_Contents {
 		echo $is_preview ? $this->get_preview( $args['open'] ) : $this->get_toc( $args, $post_id = '' );
 	}
 
+	/**
+	 * Register shortcode.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function register_shortcode( $atts ) {
 		return $this->get_toc( $atts );
 	}
 
+	/**
+	 * Gets table of contents for editor.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function get_preview( $open ) {
 		$labels = $this->get_labels();
 		$open   = $open ? ' open': '';
@@ -109,6 +141,13 @@ class Mai_Table_Of_Contents {
 		return $html;
 	}
 
+	/**
+	 * Gets table of contents for display.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function get_toc( $args, $post_id = '' ) {
 		// Get post ID.
 		if ( ! $post_id ) {
@@ -151,6 +190,13 @@ class Mai_Table_Of_Contents {
 		return $this->get_html( $data['matches'], $args );
 	}
 
+	/**
+	 * Gets table of contents html.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function get_html( $matches, $args ) {
 		if ( ! $matches ) {
 			return '';
@@ -193,7 +239,8 @@ class Mai_Table_Of_Contents {
 		$args['open'] = $args['open'] ? ' open' : '';
 
 		// Build HTML.
-		$html = sprintf( '<div class="%s">', trim( $classes ) );
+		$html = $this->get_css();
+		$html .= sprintf( '<div class="%s">', trim( $classes ) );
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $args['open'] );
 				$html .= '<summary class="mai-toc__summary" tabindex="0">';
 					$html .= '<span class="mai-toc__row">';
@@ -233,6 +280,13 @@ class Mai_Table_Of_Contents {
 		return $html;
 	}
 
+	/**
+	 * Gets content with table of contents added.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function get_the_content( $content ) {
 
 		// Bail if not singular content.
@@ -276,6 +330,13 @@ class Mai_Table_Of_Contents {
 		return $toc . $data['content'];
 	}
 
+	/**
+	 * Gets content as structured data.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array
+	 */
 	function get_data( $content ) {
 
 		// Starting data.
@@ -381,6 +442,13 @@ class Mai_Table_Of_Contents {
 		return $data;
 	}
 
+	/**
+	 * Gets table of contents labels.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string
+	 */
 	function get_labels() {
 		$labels = [
 			'label' => __( 'Table of Contents', 'mai-table-of-contents' ),
@@ -393,8 +461,27 @@ class Mai_Table_Of_Contents {
 		return $labels;
 	}
 
-	function get_suffix() {
-		$debug  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
-		return $debug ? '' : '.min';
+	/**
+	 * Gets toc css link if it hasn't been loaded yet.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return string
+	 */
+	function get_css() {
+		static $loaded = false;
+
+		if ( $loaded ) {
+			return;
+		}
+
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css";
+		$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
+
+		// For some reason CSS wasn't loading in the editor. Only tested this in Mai Ads Manager.
+		$loaded = ! is_admin() ? true : false;
+
+		return $css;
 	}
 }
