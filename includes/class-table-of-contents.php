@@ -481,13 +481,23 @@ class Mai_Table_Of_Contents {
 		$css = '';
 
 		if ( ! is_admin() ) {
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css";
+			$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->suffix()}.css";
 			$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
 		}
 
 		$loaded = true;
 
 		return $css;
+	}
+
+	/**
+	 * Gets suffix for scripts.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return string
+	 */
+	function get_suffix() {
+		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 }
