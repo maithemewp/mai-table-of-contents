@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.1 (12/7/21)
+* Fixed: Editor vs front end CSS loading.
+
 ## 1.3.0 (12/6/21)
 * Changed: CSS is now loaded on demand right before the table of contents.
 * Changed: Settings now appear under Mai Theme menu in Dashboard.
