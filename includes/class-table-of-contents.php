@@ -49,6 +49,11 @@ class Mai_Table_Of_Contents {
 				'keywords'        => [ 'table', 'contents', 'toc' ],
 				'mode'            => 'preview',
 				'multiple'        => false,
+				'enqueue_assets'  => function(){
+					if ( is_admin() ) {
+						wp_enqueue_style( 'mai-table-of-contents', MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->get_suffix()}.css", [], MAI_TABLE_OF_CONTENTS_VERSION );
+					}
+				},
 				'render_callback' => [ $this, 'do_toc' ],
 				'supports'        => [
 					'align'  => [ 'wide' ],
@@ -102,7 +107,8 @@ class Mai_Table_Of_Contents {
 	function get_preview( $open ) {
 		$labels = $this->get_labels();
 		$open   = $open ? ' open': '';
-		$html   = '<div class="mai-toc">';
+		$html   = $this->get_css();
+		$html  .= '<div class="mai-toc">';
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $open );
 				$html .= '<summary class="mai-toc__summary">';
 					$html .= '<span class="mai-toc__row">';
@@ -207,9 +213,6 @@ class Mai_Table_Of_Contents {
 			return;
 		}
 
-		// Enqueue styles.
-		wp_enqueue_style( 'mai-table-of-contents' );
-
 		// Get the labels.
 		$labels = $this->get_labels();
 
@@ -239,7 +242,7 @@ class Mai_Table_Of_Contents {
 		$args['open'] = $args['open'] ? ' open' : '';
 
 		// Build HTML.
-		$html = $this->get_css();
+		$html  = $this->get_css();
 		$html .= sprintf( '<div class="%s">', trim( $classes ) );
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $args['open'] );
 				$html .= '<summary class="mai-toc__summary" tabindex="0">';
@@ -475,12 +478,15 @@ class Mai_Table_Of_Contents {
 			return;
 		}
 
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css";
-		$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
+		$css = '';
 
-		// For some reason CSS wasn't loading in the editor. Only tested this in Mai Ads Manager.
-		$loaded = ! is_admin() ? true : false;
+		if ( ! is_admin() ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css";
+			$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
+		}
+
+		$loaded = true;
 
 		return $css;
 	}
