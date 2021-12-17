@@ -40,6 +40,7 @@ class Mai_Table_Of_Contents_Settings {
 
 		add_action( 'acf/render_field/key=field_5dd59edcd62e7', [ $this, 'custom_css' ] );
 		add_filter( 'acf/load_field/key=field_5dd59edcd62e7',   [ $this, 'get_post_types' ] );
+		add_filter( 'plugin_action_links_mai-table-of-contents/mai-table-of-contents.php', [ $this, 'add_settings_link' ], 10, 4 );
 	}
 
 	/**
@@ -105,5 +106,25 @@ class Mai_Table_Of_Contents_Settings {
 
 		// Send it.
 		return $field;
+	}
+
+	/**
+	 * Return the plugin action links.  This will only be called if the plugin is active.
+	 *
+	 * @since   0.2.0
+	 *
+	 * @param   array   $actions      Associative array of action names to anchor tags
+	 * @param   string  $plugin_file  Plugin file name, ie my-plugin/my-plugin.php
+	 * @param   array   $plugin_data  Associative array of plugin data from the plugin file headers
+	 * @param   string  $context      Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
+	 *
+	 * @return  array  associative array of plugin action links
+	 */
+	function add_settings_link( $actions, $plugin_file, $plugin_data, $context ) {
+		$url                 = admin_url( sprintf( '%s.php?page=mai-table-of-contents', class_exists( 'Mai_Engine' ) ? 'admin' : 'options-general' ) );
+		$link                = sprintf( '<a href="%s">%s</a>', $url, __( 'Settings', 'mai-table-of-contents' ) );
+		$actions['settings'] = $link;
+
+		return $actions;
 	}
 }

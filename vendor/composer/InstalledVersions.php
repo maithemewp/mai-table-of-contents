@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4e5aaa7c1ef38f925689b13df5f82a697a3de724',
+    'reference' => '89bfdf3f59feaa361c13361fd4bf1cd7bbf15349',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4e5aaa7c1ef38f925689b13df5f82a697a3de724',
+      'reference' => '89bfdf3f59feaa361c13361fd4bf1cd7bbf15349',
     ),
     'yahnis-elsts/plugin-update-checker' => 
     array (

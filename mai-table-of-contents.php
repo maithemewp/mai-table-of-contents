@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Table of Contents
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
  * Description:     Automatically create a table of contents from headings in your posts.
- * Version:         1.3.1
+ * Version:         1.3.2
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -90,7 +90,7 @@ final class Mai_Table_Of_Contents_Plugin {
 
 		// Plugin version.
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_VERSION' ) ) {
-			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.3.1' );
+			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.3.2' );
 		}
 
 		// Plugin Folder Path.
@@ -147,8 +147,6 @@ final class Mai_Table_Of_Contents_Plugin {
 		if ( ! is_admin() ) {
 			return;
 		}
-
-		add_filter( 'plugin_action_links_' . MAI_TABLE_OF_CONTENTS_BASENAME, [ $this, 'add_settings_link' ], 10, 4 );
 	}
 
 	/**
@@ -188,23 +186,6 @@ final class Mai_Table_Of_Contents_Plugin {
 				}
 			);
 		}
-	}
-
-	/**
-	 * Return the plugin action links.  This will only be called if the plugin is active.
-	 *
-	 * @since   0.2.0
-	 *
-	 * @param   array   $actions      Associative array of action names to anchor tags
-	 * @param   string  $plugin_file  Plugin file name, ie my-plugin/my-plugin.php
-	 * @param   array   $plugin_data  Associative array of plugin data from the plugin file headers
-	 * @param   string  $context      Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
-	 *
-	 * @return  array  associative array of plugin action links
-	 */
-	function add_settings_link( $actions, $plugin_file, $plugin_data, $context ) {
-		$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=mai-table-of-contents' ), __( 'Settings', 'mai-table-of-contents' ) );
-		return $actions;
 	}
 }
 
