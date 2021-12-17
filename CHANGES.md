@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.2 (12/17/21)
+* Fixed: Settings link in plugin list.
+
 ## 1.3.1 (12/7/21)
 * Fixed: Editor vs front end CSS loading.
 
