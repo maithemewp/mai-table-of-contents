@@ -22,9 +22,9 @@ class Mai_Table_Of_Contents {
 	 * @return void
 	 */
 	function hooks() {
-		add_action( 'acf/init',    [ $this, 'register_block' ], 10, 3 );
-		add_shortcode( 'mai_toc',  [ $this, 'register_shortcode' ] );
-		add_filter( 'the_content', [ $this, 'get_the_content' ] );
+		add_action( 'acf/init',   [ $this, 'register_block' ], 10, 3 );
+		add_shortcode( 'mai_toc', [ $this, 'register_shortcode' ] );
+		add_action( 'get_header', [ $this, 'maybe_add_toc' ] );
 	}
 
 	/**
@@ -284,53 +284,71 @@ class Mai_Table_Of_Contents {
 	}
 
 	/**
-	 * Gets content with table of contents added.
+	 * Maybe adds the toc.
 	 *
-	 * @since 0.1.0
+	 * @since TBD
 	 *
-	 * @return string
+	 * @return void
 	 */
-	function get_the_content( $content ) {
-
+	function maybe_add_toc() {
 		// Bail if not singular content.
 		if ( ! is_singular() || is_front_page() ) {
-			return $content;
-		}
-
-		// Bail if not the main query.
-		if ( ! is_main_query() ) {
-			return $content;
+			return;
 		}
 
 		// Get post_types (with ACF strange key).
 		$post_types = get_option( 'options_maitoc_post_types', [] );
 
-		// Check if auto-displayed.
-		$displayed  = in_array( get_post_type(), (array) $post_types );
-		$has_toc    = has_block( 'acf/mai-table-of-contents' ) || has_shortcode( $content, 'mai_toc' );
-
-		// Bail if no toc.
-		if ( ! ( $displayed || $has_toc ) ) {
-			return $content;
+		// Bail if not the right post type.
+		if ( ! $post_types || ! in_array( get_post_type(), (array) $post_types ) ) {
+			return;
 		}
 
-		// Get the content/matches data.
-		$data = $this->get_data( $content );
+		$post_id = get_the_ID();
 
-		$toc = '';
+		// Bail if already has manually added block.
+		if ( has_block( 'acf/mai-table-of-contents', $post_id ) ) {
+			return;
+		}
 
-		if ( $displayed && ! $has_toc ) {
-			$toc = $this->get_toc(
+		/**
+		 * Gets content with table of contents added.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @return string
+		 */
+		add_filter( 'the_content', function( $content ) use ( $post_id ) {
+			// Bail if no content.
+			if ( ! $content ) {
+				return $content;
+			}
+
+			// Make sure this only targets the post we want.
+			// Fixes issue when Mai Post Grid or similar is used
+			// inside a post that is showing a toc.
+			if ( get_the_ID() !== $post_id ) {
+				return $content;
+			}
+
+			// Bail if already has manually added shortcode.
+			if ( has_shortcode( $content, 'mai_toc' ) ) {
+				return $content;
+			}
+
+			// Get the content/matches data.
+			$data = $this->get_data( $content );
+			$toc  = $this->get_toc(
 				[
 					'open'     => get_field( 'maitoc_open', 'options' ),
 					'headings' => get_field( 'maitoc_headings', 'options' ),
 					'style'    => get_field( 'maitoc_style', 'options' ),
 				]
 			);
-		}
 
-		// Return the altered content.
-		return $toc . $data['content'];
+			// Return the altered content.
+			return $toc . $data['content'];
+		});
 	}
 
 	/**
