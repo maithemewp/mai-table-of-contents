@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.3 (2/17/22)
+* Fixed: TOC data showing in Mai Post Grid in some scenarios.
+
 ## 1.3.2 (12/17/21)
 * Fixed: CSS loading if blocks parsed early.
 * Fixed: Settings link in plugin list.
