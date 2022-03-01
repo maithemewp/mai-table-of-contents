@@ -498,7 +498,7 @@ class Mai_Table_Of_Contents {
 
 		$css = '';
 
-		if ( ! is_admin() && did_action( 'loop_start' ) ) {
+		if ( ! is_admin() && did_action( 'wp_print_styles' ) ) {
 			$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$this->get_suffix()}.css";
 			$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
 			$loaded = true;

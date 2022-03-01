@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.4 (3/1/22)
+* Fixed: CSS not loading on some posts.
+
 ## 1.3.3 (2/17/22)
 * Fixed: TOC data showing in Mai Post Grid in some scenarios.
 
