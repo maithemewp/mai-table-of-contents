@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.5 (3/2/22)
+* Added: Support for Rank Math TOC feature.
+
 ## 1.3.4 (3/1/22)
 * Fixed: CSS not loading on some posts.
 
