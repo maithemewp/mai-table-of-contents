@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || die;
  *
  * @access private
  *
- * @since TBD
+ * @since 1.4.0
  *
  * @return array
  */
@@ -119,7 +119,7 @@ function maitoc_get_data( $content ) {
  *    'repeated-heading' => 3,
  * ];
  *
- * @since TBD
+ * @since 1.4.0
  *
  * @param string $id    The existing id to check.
  * @param bool   $reset Reset the ancrhos.
@@ -146,7 +146,7 @@ function maitoc_get_unique_id( $id, $reset = false ) {
 /**
  * Gets suffix for scripts.
  *
- * @since TBD
+ * @since 1.4.0
  *
  * @return string
  */

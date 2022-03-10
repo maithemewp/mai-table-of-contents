@@ -10,7 +10,7 @@ class Mai_Table_Of_Contents_Display {
 	/**
 	 * Gets it started.
 	 *
-	 * @since TBD
+	 * @since 1.4.0
 	 *
 	 * @return void
 	 */
@@ -21,7 +21,7 @@ class Mai_Table_Of_Contents_Display {
 	/**
 	 * Runs hooks.
 	 *
-	 * @since TBD
+	 * @since 1.4.0
 	 *
 	 * @return void
 	 */
@@ -32,7 +32,7 @@ class Mai_Table_Of_Contents_Display {
 	/**
 	 * Runs toc.
 	 *
-	 * @since TBD
+	 * @since 1.4.0
 	 *
 	 * @return void
 	 */
@@ -53,7 +53,7 @@ class Mai_Table_Of_Contents_Display {
 	 * Makes sure headings all have unique IDs.
 	 * Maybe adds toc.
 	 *
-	 * @since TBD
+	 * @since 1.4.0
 	 *
 	 * @return string
 	 */

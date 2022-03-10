@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 (3/10/22)
+* Changed: Refactored internal classes.
+* Fixed: Edge-case issues when TOC block is used and/or heading id attribute exists but is empty.
+
 ## 1.3.5 (3/2/22)
 * Added: Support for Rank Math TOC feature.
 

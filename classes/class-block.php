@@ -7,7 +7,7 @@ class Mai_Table_Of_Contents_Block {
 	/**
 	 * Gets it started.
 	 *
-	 * @since TBD
+	 * @since 1.4.0
 	 *
 	 * @return void
 	 */

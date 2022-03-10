@@ -7,7 +7,7 @@ add_filter( 'rank_math/researches/toc_plugins', 'maitoc_rank_math_toc_plugins' )
 /**
  * Adds support for Rank Math TOC score.
  *
- * @since TBD
+ * @since 1.4.0
  *
  * @link https://rankmath.com/kb/table-of-contents/
  *
