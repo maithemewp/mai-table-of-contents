@@ -87,7 +87,6 @@ final class Mai_Table_Of_Contents_Plugin {
 	 * @return  void
 	 */
 	private function setup_constants() {
-
 		// Plugin version.
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_VERSION' ) ) {
 			define( 'MAI_TABLE_OF_CONTENTS_VERSION', '1.3.5' );
@@ -96,6 +95,11 @@ final class Mai_Table_Of_Contents_Plugin {
 		// Plugin Folder Path.
 		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_PLUGIN_DIR' ) ) {
 			define( 'MAI_TABLE_OF_CONTENTS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+		}
+
+		// Plugin Clases Path.
+		if ( ! defined( 'MAI_TABLE_OF_CONTENTS_CLASSES_DIR' ) ) {
+			define( 'MAI_TABLE_OF_CONTENTS_CLASSES_DIR', MAI_TABLE_OF_CONTENTS_PLUGIN_DIR . 'classes/' );
 		}
 
 		// Plugin Includes Path.
@@ -131,6 +135,8 @@ final class Mai_Table_Of_Contents_Plugin {
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Includes.
 		foreach ( glob( MAI_TABLE_OF_CONTENTS_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		// Classes.
+		foreach ( glob( MAI_TABLE_OF_CONTENTS_CLASSES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
 	/**
@@ -140,7 +146,8 @@ final class Mai_Table_Of_Contents_Plugin {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init', [ $this, 'updater' ] );
+		add_action( 'admin_init',     [ $this, 'updater' ] );
+		add_action( 'plugins_loaded', [ $this, 'run' ] );
 	}
 
 	/**
@@ -180,6 +187,21 @@ final class Mai_Table_Of_Contents_Plugin {
 				}
 			);
 		}
+	}
+
+	/**
+	 * Runs plugin if Mai Engine is active.
+	 *
+	 * @return void
+	 */
+	public function run() {
+		if ( ! class_exists( 'acf_pro' ) ) {
+			return;
+		}
+
+		new Mai_Table_Of_Contents_Settings;
+		new Mai_Table_Of_Contents_Block;
+		new Mai_Table_Of_Contents_Display;
 	}
 }
 
