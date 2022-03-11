@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1 (3/11/22)
+* Fixed: Missing default HTML class changing default TOC styles unexpectedly.
+
 ## 1.4.0 (3/10/22)
 * Changed: Refactored internal classes.
 * Fixed: Edge-case issues when TOC block is used and/or heading id attribute exists but is empty.
