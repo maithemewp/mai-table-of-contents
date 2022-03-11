@@ -21,7 +21,7 @@ class Mai_Table_Of_Contents {
 				'preview'  => false,
 				'open'     => get_option( 'options_maitoc_open', true ),
 				'headings' => get_option( 'options_maitoc_headings', 2 ),
-				'style'    => get_option( 'options_maitoc_style', 'default' ),
+				'style'    => get_option( 'options_maitoc_style', '' ), // Default is empty.
 				'class'    => '',
 				'align'    => '', // Accepts "wide".
 			],
@@ -38,6 +38,9 @@ class Mai_Table_Of_Contents {
 			'class'    => esc_attr( $args['class'] ),
 			'align'    => esc_attr( $args['align'] ),
 		];
+
+		// Force default if empty.
+		$args['style'] = $args['style'] ?: 'default';
 
 		$this->args   = $args;
 		$this->labels = $this->get_labels();
