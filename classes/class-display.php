@@ -98,16 +98,7 @@ class Mai_Table_Of_Contents_Display {
 		// Get post_types (with ACF strange key).
 		$post_types = (array) get_option( 'options_maitoc_post_types', [] );
 
-		// Bail if not auto-displaying.
-		if ( ! ( $post_types || in_array( get_post_type( $this->post_id ), $post_types ) ) ) {
-			return false;
-		}
-
-		// Bail if already has block.
-		if ( has_block( 'acf/mai-table-of-contents', $this->post_id ) ) {
-			return false;
-		}
-
-		return true;
+		// If auto-displaying on this post type and doesn't have a toc block. Shortcode checked later in content.
+		return $post_types && in_array( get_post_type( $this->post_id ), $post_types ) && ! has_block( 'acf/mai-table-of-contents', $this->post_id );
 	}
 }

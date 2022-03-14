@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.2 (3/14/22)
+* Fixed: Post type restriction not working in some scenarios.
+
 ## 1.4.1 (3/11/22)
 * Fixed: Missing default HTML class changing default TOC styles unexpectedly.
 
