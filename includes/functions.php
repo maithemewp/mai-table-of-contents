@@ -100,7 +100,7 @@ function maitoc_get_data( $content ) {
 		}
 	}
 
-	$data['content'] = $dom->saveHTML();
+	$data['content'] = $dom->saveHTML( $dom->documentElement );
 
 	return $data;
 }
