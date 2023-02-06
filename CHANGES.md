@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.3 (2/6/23)
+* Fixed: Headings inside other elements/blocks were breaking hierarchy in TOC.
+
 ## 1.4.2 (3/14/22)
 * Fixed: Post type restriction not working in some scenarios.
 
