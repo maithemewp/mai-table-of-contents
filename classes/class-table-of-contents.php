@@ -61,8 +61,8 @@ class Mai_Table_Of_Contents {
 	 * @return string
 	 */
 	function get_preview() {
-		$html  = $this->get_css();
-		$html .= '<div class="mai-toc">';
+		$html = '<div class="mai-toc">';
+			$html .= $this->get_css();
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $this->args['open'] ? ' open': '' );
 				$html .= '<summary class="mai-toc__summary">';
 					$html .= '<span class="mai-toc__row">';
