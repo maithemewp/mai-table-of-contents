@@ -105,7 +105,7 @@ function maitoc_get_data( $content ) {
  * Gets a unique id value from node.
  * See `maitoc_get_unique_id()` for explanation.
  *
- * @since TBD
+ * @since 1.4.3
  *
  * @param string $id    The existing id to check.
  * @param bool   $reset Reset the anchors.
