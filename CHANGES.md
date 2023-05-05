@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.1 (5/5/23)
+* Fixed: Missing content on some post types when a TOC is not present.
+
 ## 1.5.0 (5/5/23)
 * Changed: More efficient building of TOC and structuring the headings/markup.
 * Fixed: Invalid markup in some scenarios.
