@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0 (5/5/23)
+* Changed: More efficient building of TOC and structuring the headings/markup.
+* Fixed: Invalid markup in some scenarios.
+
 ## 1.4.3 (2/6/23)
 * Fixed: Headings inside other elements/blocks were breaking hierarchy in TOC.
 

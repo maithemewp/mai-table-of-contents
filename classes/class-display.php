@@ -121,7 +121,7 @@ class Mai_Table_Of_Contents_Display {
 	/**
 	 * If has TOC block.
 	 *
-	 * @since TBD
+	 * @since 1.5.0
 	 *
 	 * @return bool
 	 */
@@ -132,7 +132,7 @@ class Mai_Table_Of_Contents_Display {
 	/**
 	 * If has TOC shortcode.
 	 *
-	 * @since TBD
+	 * @since 1.5.0
 	 *
 	 * @return bool
 	 */

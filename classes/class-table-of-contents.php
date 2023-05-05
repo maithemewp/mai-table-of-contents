@@ -66,7 +66,7 @@ class Mai_Table_Of_Contents {
 	/**
 	 * Gets the formatted content.
 	 *
-	 * @since TBD
+	 * @since 1.5.0
 	 *
 	 * @return string
 	 */
@@ -229,7 +229,7 @@ class Mai_Table_Of_Contents {
 	 * @access private
 	 *
 	 * @since 1.4.0
-	 * @since TBD Moved inside this class.
+	 * @since 1.5.0 Moved inside this class.
 	 *
 	 * @return array
 	 */
@@ -342,7 +342,7 @@ class Mai_Table_Of_Contents {
 	 * See `get_unique_id()` for explanation.
 	 *
 	 * @since 1.4.3
-	 * @since TBD Moved inside this class.
+	 * @since 1.5.0 Moved inside this class.
 	 *
 	 * @param string $id    The existing id to check.
 	 * @param bool   $reset Reset the anchors.
@@ -375,7 +375,7 @@ class Mai_Table_Of_Contents {
 	 * ];
 	 *
 	 * @since 1.4.0
-	 * @since TBD Moved inside this class.
+	 * @since 1.5.0 Moved inside this class.
 	 *
 	 * @param string $id    The existing id to check.
 	 * @param bool   $reset Reset the anchors.
