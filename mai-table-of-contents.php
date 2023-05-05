@@ -190,7 +190,7 @@ final class Mai_Table_Of_Contents_Plugin {
 	}
 
 	/**
-	 * Runs plugin if Mai Engine is active.
+	 * Runs plugin if ACF Pro is active.
 	 *
 	 * @return void
 	 */

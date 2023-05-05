@@ -50,7 +50,7 @@ class Mai_Table_Of_Contents_Block {
 				'mode'            => 'preview',
 				'multiple'        => false,
 				'render_callback' => [ $this, 'do_toc' ],
-				'enqueue_assets'  => function(){
+				'enqueue_assets'  => function() {
 					if ( is_admin() ) {
 						$suffix = maitoc_get_suffix();
 						wp_enqueue_style( 'mai-table-of-contents', MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css", [], MAI_TABLE_OF_CONTENTS_VERSION );

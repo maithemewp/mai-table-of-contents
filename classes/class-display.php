@@ -6,6 +6,8 @@ defined( 'ABSPATH' ) || die;
 class Mai_Table_Of_Contents_Display {
 	protected $post_id;
 	protected $has_toc;
+	protected $has_block;
+	protected $has_shortcode;
 
 	/**
 	 * Gets it started.
@@ -42,8 +44,8 @@ class Mai_Table_Of_Contents_Display {
 			return;
 		}
 
+		// Set post ID.
 		$this->post_id = get_the_ID();
-		$this->has_toc = $this->has_toc();
 
 		// Format headings.
 		add_filter( 'the_content', [ $this, 'filter_content' ] );
@@ -58,6 +60,11 @@ class Mai_Table_Of_Contents_Display {
 	 * @return string
 	 */
 	function filter_content( $content ) {
+		// Bail if not main query in the loop.
+		if ( ! ( is_main_query() && in_the_loop() ) ) {
+			return $content;
+		}
+
 		// Bail if no content.
 		if ( ! $content ) {
 			return $content;
@@ -66,31 +73,40 @@ class Mai_Table_Of_Contents_Display {
 		// Make sure this only targets the post we want.
 		// Fixes issue when Mai Post Grid or similar is used
 		// inside a post that is showing a toc.
+		// The addition of in_the_loop() check may have fixed this as well.
 		if ( ! $this->post_id || get_the_ID() !== $this->post_id ) {
 			return $content;
 		}
 
-		// Check for shortcode in filtered content.
-		$this->has_toc = $this->has_toc && ! has_shortcode( $content, 'mai_toc' );
+		// Check if we have a block or shortcode.
+		$this->has_toc       = $this->has_toc();
+		$this->has_block     = $this->has_block();
+		$this->has_shortcode = $this->has_shortcode( $content );
 
-		// Get the content/matches data.
-		$data = maitoc_get_data( $content );
-
-		// Build the new content.
-		$content = '';
-
-		if ( $this->has_toc ) {
-			$toc      = new Mai_Table_Of_Contents;
-			$content .= $toc->get();
+		// Bail if no TOC.
+		if ( ! ( $this->has_toc || $this->has_block || $this->has_shortcode ) ) {
+			return;
 		}
 
-		$content .= $data['content'];
+		// Set it up.
+		$html = '';
+		$toc  = new Mai_Table_Of_Contents( [], $this->post_id, $content );
 
-		return $content;
+		// If no block or shortcode in the content, add TOC.
+		if ( ! ( $this->has_block || $this->has_shortcode ) ) {
+			$html .= $toc->get();
+		}
+
+		// Use markup with matched heading ids.
+		$html .= $toc->get_content();
+
+		return $html;
 	}
 
 	/**
 	 * Checks if a post has an auto-displayed toc.
+	 *
+	 * @since 0.1.0
 	 *
 	 * @return bool
 	 */
@@ -99,6 +115,28 @@ class Mai_Table_Of_Contents_Display {
 		$post_types = (array) get_option( 'options_maitoc_post_types', [] );
 
 		// If auto-displaying on this post type and doesn't have a toc block. Shortcode checked later in content.
-		return $post_types && in_array( get_post_type( $this->post_id ), $post_types ) && ! has_block( 'acf/mai-table-of-contents', $this->post_id );
+		return $post_types && in_array( get_post_type( $this->post_id ), $post_types );
+	}
+
+	/**
+	 * If has TOC block.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	function has_block() {
+		return has_block( 'acf/mai-table-of-contents', $this->post_id );
+	}
+
+	/**
+	 * If has TOC shortcode.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	function has_shortcode( $content ) {
+		return has_shortcode( $content, 'mai_toc' );
 	}
 }
