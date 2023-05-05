@@ -13,6 +13,9 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// Must be at the top of the file.
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
 /**
  * Main Mai_Table_Of_Contents_Plugin Class.
  *
@@ -160,18 +163,13 @@ final class Mai_Table_Of_Contents_Plugin {
 	 * @return  void
 	 */
 	public function updater() {
-		// Bail if current user cannot manage plugins.
-		if ( ! current_user_can( 'install_plugins' ) ) {
-			return;
-		}
-
 		// Bail if plugin updater is not loaded.
-		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+		if ( ! class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
 			return;
 		}
 
 		// Setup the updater.
-		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-table-of-contents/', __FILE__, 'mai-table-of-contents' );
+		$updater = PucFactory::buildUpdateChecker( 'https://github.com/maithemewp/mai-table-of-contents/', __FILE__, 'mai-table-of-contents' );
 
 		// Maybe set github api token.
 		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
