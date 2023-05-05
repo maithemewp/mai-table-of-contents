@@ -85,7 +85,7 @@ class Mai_Table_Of_Contents_Display {
 
 		// Bail if no TOC.
 		if ( ! ( $this->has_toc || $this->has_block || $this->has_shortcode ) ) {
-			return;
+			return $content;
 		}
 
 		// Set it up.
