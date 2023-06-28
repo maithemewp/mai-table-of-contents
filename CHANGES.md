@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2 (6/28/23)
+* Changed: Update the updater.
+* Fixed: TOC block and shortcode not respecting the minimum headings count.
+
 ## 1.5.1 (5/5/23)
 * Fixed: Missing content on some post types when a TOC is not present.
 

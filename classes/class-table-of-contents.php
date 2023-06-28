@@ -323,8 +323,8 @@ class Mai_Table_Of_Contents {
 			}
 		}
 
-		// If we have at least 3 h2 headings.
-		if ( count( $data['matches'] ) > 2 ) {
+		// If we have the minimum h2 headings.
+		if ( count( $data['matches'] ) >= $this->args['headings'] ) {
 			// Store TOC in new content.
 			$data['content'] = $dom->saveHTML();
 		}
