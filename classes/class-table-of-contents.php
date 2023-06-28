@@ -149,7 +149,7 @@ class Mai_Table_Of_Contents {
 		}
 
 		// Bail if not enough h2s.
-		if ( count( $this->data['matches'] ) < absint( $this->args['headings'] ) ) {
+		if ( count( $this->data['matches'] ) < $this->args['headings'] ) {
 			return $cache[ $this->post_id ];
 		}
 
@@ -323,8 +323,8 @@ class Mai_Table_Of_Contents {
 			}
 		}
 
-		// If we have at least 3 h2 headings.
-		if ( count( $data['matches'] ) > 2 ) {
+		// If we have the minimum h2 headings.
+		if ( count( $data['matches'] ) >= $this->args['headings'] ) {
 			// Store TOC in new content.
 			$data['content'] = $dom->saveHTML();
 		}
