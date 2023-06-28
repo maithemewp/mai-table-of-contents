@@ -149,7 +149,7 @@ class Mai_Table_Of_Contents {
 		}
 
 		// Bail if not enough h2s.
-		if ( count( $this->data['matches'] ) < absint( $this->args['headings'] ) ) {
+		if ( count( $this->data['matches'] ) < $this->args['headings'] ) {
 			return $cache[ $this->post_id ];
 		}
 
