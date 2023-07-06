@@ -82,8 +82,10 @@ class Mai_Table_Of_Contents {
 	 * @return string
 	 */
 	function get_preview() {
+		// Adds inline CSS.
+		$this->add_styles();
+
 		$html = '<div class="mai-toc">';
-			$html .= $this->get_css();
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $this->args['open'] ? ' open': '' );
 				$html .= '<summary class="mai-toc__summary">';
 					$html .= '<span class="mai-toc__row">';
@@ -130,9 +132,8 @@ class Mai_Table_Of_Contents {
 	 * @return string
 	 */
 	function get_toc() {
-		$post_id = $this->post_id;
-
 		static $cache = [];
+		$post_id      = $this->post_id;
 
 		if ( isset( $cache[ $this->post_id ] ) ) {
 			return $cache[ $this->post_id ];
@@ -152,6 +153,9 @@ class Mai_Table_Of_Contents {
 		if ( count( $this->data['matches'] ) < $this->args['headings'] ) {
 			return $cache[ $this->post_id ];
 		}
+
+		// Adds inline CSS.
+		$this->add_styles();
 
 		// Get classes.
 		$classes = 'mai-toc';
@@ -176,8 +180,7 @@ class Mai_Table_Of_Contents {
 		}
 
 		// Build HTML.
-		$html  = sprintf( '<div class="%s">', trim( $classes ) );
-		$html .= $this->get_css();
+		$html = sprintf( '<div class="%s">', trim( $classes ) );
 			$html .= sprintf( '<details class="mai-toc__showhide"%s>', $this->args['open'] ? ' open' : '' );
 				$html .= '<summary class="mai-toc__summary" tabindex="0">';
 					$html .= '<span class="mai-toc__row">';
@@ -218,6 +221,22 @@ class Mai_Table_Of_Contents {
 		$cache[ $this->post_id ] = $html;
 
 		return $cache[ $this->post_id ];
+	}
+
+	/**
+	 * Adds inline CSS.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	function add_styles() {
+		$suffix = maitoc_get_suffix();
+		$url    = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-table-of-contents{$suffix}.css";
+		$path   = MAI_TABLE_OF_CONTENTS_PLUGIN_DIR . "assets/css/mai-table-of-contents{$suffix}.css";
+
+		wp_enqueue_style( 'mai-table-of-contents', $url );
+		wp_style_add_data( 'mai-table-of-contents', 'path', $path );
 	}
 
 	/**
@@ -416,32 +435,5 @@ class Mai_Table_Of_Contents {
 		$labels = apply_filters( 'mai_table_of_contents_labels', $labels );
 
 		return $labels;
-	}
-
-	/**
-	 * Gets toc css link if it hasn't been loaded yet.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @return string
-	 */
-	function get_css() {
-		static $loaded = false;
-
-		if ( $loaded ) {
-			return;
-		}
-
-		$css = '';
-
-		// if ( ! is_admin() && did_action( 'wp_print_styles' ) ) {
-		if ( ! is_admin() ) {
-			$suffix = maitoc_get_suffix();
-			$href   = MAI_TABLE_OF_CONTENTS_PLUGIN_URL . "assets/css/mai-toc{$suffix}.css";
-			$css    = sprintf( '<link rel="stylesheet" href="%s" />', $href );
-			$loaded = true;
-		}
-
-		return $css;
 	}
 }

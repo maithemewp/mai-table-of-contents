@@ -1,0 +1,18 @@
+{
+	"name": "acf/mai-table-of-contents",
+	"title": "Mai Table of Contents",
+	"description": "A table of contents block.",
+	"category": "formatting",
+	"keywords": [ "talbe", "contents", "toc" ],
+	"icon": "list-view",
+	"textdomain": "mai-table-of-contents",
+	"editorStyle": "file:../../assets/css/mai-toc.min.css",
+	"acf": {
+		"mode": "preview",
+		"renderCallback": "mai_do_toc_block"
+	},
+	"supports": {
+		"align": [ "wide" ],
+		"anchor": true
+	}
+}
