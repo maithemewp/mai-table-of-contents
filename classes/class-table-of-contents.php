@@ -1,7 +1,7 @@
 <?php
 
-// Prevent direct file access.
-defined( 'ABSPATH' ) || die;
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Mai_Table_Of_Contents {
 	protected $args;
