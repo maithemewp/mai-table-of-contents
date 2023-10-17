@@ -5,9 +5,11 @@ defined( 'ABSPATH' ) || die;
 
 class Mai_Table_Of_Contents_Display {
 	protected $post_id;
-	protected $has_toc;
+	protected $has_default;
 	protected $has_block;
 	protected $has_shortcode;
+	protected $has_native;
+	protected $has_custom;
 
 	/**
 	 * Gets it started.
@@ -78,13 +80,17 @@ class Mai_Table_Of_Contents_Display {
 			return $content;
 		}
 
-		// Check if we have a block or shortcode.
-		$this->has_toc       = $this->has_toc();
+		// Check if we have a default, block, or shortcode.
+		$this->has_default   = $this->has_default();
 		$this->has_block     = $this->has_block();
 		$this->has_shortcode = $this->has_shortcode( $content );
+		$this->has_native    = $this->has_default || $this->has_block || $this->has_shortcode;
+		$this->has_custom    = apply_filters( 'mai_table_of_contents_has_custom', false, $this->post_id );
+
+		ray( $this->has_custom );
 
 		// Bail if no TOC.
-		if ( ! ( $this->has_toc || $this->has_block || $this->has_shortcode ) ) {
+		if ( ! ( $this->has_native || $this->has_custom ) ) {
 			return $content;
 		}
 
@@ -93,7 +99,7 @@ class Mai_Table_Of_Contents_Display {
 		$toc  = new Mai_Table_Of_Contents( [], $this->post_id, $content );
 
 		// If no block or shortcode in the content, add TOC.
-		if ( ! ( $this->has_block || $this->has_shortcode ) ) {
+		if ( ! ( $this->has_block || $this->has_shortcode || $this->has_custom ) ) {
 			$html .= $toc->get();
 		}
 
@@ -110,7 +116,7 @@ class Mai_Table_Of_Contents_Display {
 	 *
 	 * @return bool
 	 */
-	function has_toc() {
+	function has_default() {
 		// Get post_types (with ACF strange key).
 		$post_types = (array) get_option( 'options_maitoc_post_types', [] );
 
