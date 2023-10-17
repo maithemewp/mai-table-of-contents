@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.3 (10/17/23)
+* Added: [Developers] New `mai_table_of_contents_has_custom` filter to declare when you're rendering a TOC via custom display methods.
+* Changed: Register TOC block with block.json.
+* Changed: Update the updater.
+
 ## 1.5.2 (6/28/23)
 * Changed: Update the updater.
 * Fixed: TOC block and shortcode not respecting the minimum headings count.

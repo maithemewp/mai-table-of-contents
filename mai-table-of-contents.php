@@ -140,6 +140,8 @@ final class Mai_Table_Of_Contents_Plugin {
 		foreach ( glob( MAI_TABLE_OF_CONTENTS_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 		// Classes.
 		foreach ( glob( MAI_TABLE_OF_CONTENTS_CLASSES_DIR . '*.php' ) as $file ) { include $file; }
+		// Blocks.
+		include MAI_TABLE_OF_CONTENTS_PLUGIN_DIR . 'blocks/table-of-contents/block.php';
 	}
 
 	/**
@@ -198,7 +200,6 @@ final class Mai_Table_Of_Contents_Plugin {
 		}
 
 		new Mai_Table_Of_Contents_Settings;
-		new Mai_Table_Of_Contents_Block;
 		new Mai_Table_Of_Contents_Display;
 	}
 }
