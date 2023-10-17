@@ -12,8 +12,6 @@ add_action( 'acf/init', 'mai_register_toc_block' );
  * @return void
  */
 function mai_register_toc_block() {
-	// "style": [ "file:../../assets/css/mai-toc.css", "mai-table-of-contents" ],
-
 	register_block_type( __DIR__ . '/block.json' );
 }
 

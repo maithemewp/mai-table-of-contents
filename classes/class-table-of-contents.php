@@ -226,7 +226,7 @@ class Mai_Table_Of_Contents {
 	/**
 	 * Adds inline CSS.
 	 *
-	 * @since TBD
+	 * @since 1.5.3
 	 *
 	 * @return void
 	 */
