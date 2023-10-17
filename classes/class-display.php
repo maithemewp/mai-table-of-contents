@@ -87,8 +87,6 @@ class Mai_Table_Of_Contents_Display {
 		$this->has_native    = $this->has_default || $this->has_block || $this->has_shortcode;
 		$this->has_custom    = apply_filters( 'mai_table_of_contents_has_custom', false, $this->post_id );
 
-		ray( $this->has_custom );
-
 		// Bail if no TOC.
 		if ( ! ( $this->has_native || $this->has_custom ) ) {
 			return $content;
