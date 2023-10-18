@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.4 (10/18/23)
+* Fixed: Styles missing in the editor when using TOC block.
+
 ## 1.5.3 (10/17/23)
 * Added: [Developers] New `mai_table_of_contents_has_custom` filter to declare when you're rendering a TOC via custom display methods.
 * Changed: Register TOC block with block.json.

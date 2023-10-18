@@ -6,7 +6,7 @@
 	"keywords": [ "talbe", "contents", "toc" ],
 	"icon": "list-view",
 	"textdomain": "mai-table-of-contents",
-	"editorStyle": "file:../../assets/css/mai-toc.min.css",
+	"editorStyle": "file:../../assets/css/mai-table-of-contents.min.css",
 	"acf": {
 		"mode": "preview",
 		"renderCallback": "mai_do_toc_block"
