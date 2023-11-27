@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.5 (11/27/23)
+* Changed: Updated the updater.
+* Changed: Updated character encoding function for PHP 8.2 compatibility.
+
 ## 1.5.4 (10/18/23)
 * Fixed: Styles missing in the editor when using TOC block.
 
