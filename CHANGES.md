@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0 (1/4/23)
+* Added: New settings for TOC label and hide/show text.
+* Fixed: Wrong font-weight name for the TOC toggle (now using normal instead of regular).
+
 ## 1.5.5 (11/27/23)
 * Changed: Updated the updater.
 * Changed: Updated character encoding function for PHP 8.2 compatibility.
