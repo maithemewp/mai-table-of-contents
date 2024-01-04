@@ -38,6 +38,7 @@ function mai_do_toc_block( $block, $content = '', $is_preview = false, $post_id 
 	if ( $custom ) {
 		$args['open']     = get_field( 'maitoc_open' );
 		$args['headings'] = get_field( 'maitoc_headings' );
+		$args['label']    = get_field( 'maitoc_label' );
 	}
 
 	$toc = new Mai_Table_Of_Contents( $args );
@@ -96,6 +97,22 @@ function mai_register_toc_field_group() {
 					'type'              => 'number',
 					'default_value'     => 2,
 					'step'              => 1,
+					'conditional_logic' => [
+						[
+							[
+								'field'    => 'field_5dd59fad35b30',
+								'operator' => '==',
+								'value'    => '1',
+							],
+						],
+					],
+				],
+				[
+					'key'               => 'field_5ddhf4str3g22',
+					'label'             => __( 'Label', 'mai-table-of-contents' ),
+					'name'              => 'maitoc_label',
+					'type'              => 'text',
+					'required'          => 1,
 					'conditional_logic' => [
 						[
 							[

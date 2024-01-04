@@ -143,7 +143,7 @@ class Mai_Table_Of_Contents_Settings {
 				'fields' => [
 					[
 						'key'          => 'field_5dd59edcd62e7',
-						'label'        => __( 'Post Types', 'mai-table-of-contents' ),
+						'label'        => __( 'Post types', 'mai-table-of-contents' ),
 						'name'         => 'maitoc_post_types',
 						'type'         => 'checkbox',
 						'instructions' => __( 'Automatically display the table of contents at the beginning of the following post types.', 'mai-table-of-contents' ),
@@ -161,7 +161,7 @@ class Mai_Table_Of_Contents_Settings {
 					],
 					[
 						'key'           => 'field_5dc5aafea6dff',
-						'label'         => __( 'Load Open/Closed', 'mai-table-of-contents' ),
+						'label'         => __( 'Load open/closed', 'mai-table-of-contents' ),
 						'name'          => 'maitoc_open',
 						'type'          => 'true_false',
 						'message'       => 'Load the table of contents open by default',
@@ -169,13 +169,37 @@ class Mai_Table_Of_Contents_Settings {
 					],
 					[
 						'key'           => 'field_5dc5ab7ea6e00',
-						'label'         => __( 'Minimum Headings', 'mai-table-of-contents' ),
+						'label'         => __( 'Minimum headings', 'mai-table-of-contents' ),
 						'name'          => 'maitoc_headings',
 						'type'          => 'number',
 						'instructions'  => 'The table of contents will only display if the content has at least this many h2 headings.',
 						'required'      => 1,
 						'default_value' => 2,
 						'step'          => 1,
+					],
+					[
+						'key'           => 'field_5d7jk8rts7f11',
+						'label'         => __( 'Table of contents label', 'mai-table-of-contents' ),
+						'name'          => 'maitoc_label',
+						'type'          => 'text',
+						'required'      => 1,
+						'default_value' => __( 'Table of Contents', 'mai-table-of-contents' ),
+					],
+					[
+						'key'           => 'field_6596e79549154',
+						'label'         => __( 'Text to hide table of contents', 'mai-table-of-contents' ),
+						'name'          => 'maitoc_hide',
+						'type'          => 'text',
+						'required'      => 1,
+						'default_value' => __( '[Hide]', 'mai-table-of-contents' ),
+					],
+					[
+						'key'           => 'field_6596e79749155',
+						'label'         => __( 'Text to show table of contents', 'mai-table-of-contents' ),
+						'name'          => 'maitoc_show',
+						'type'          => 'text',
+						'required'      => 1,
+						'default_value' => __( '[Show]', 'mai-table-of-contents' ),
 					],
 				],
 				'location' => [

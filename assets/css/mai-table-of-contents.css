@@ -52,7 +52,7 @@
 .mai-toc__toggle {
 	margin-top: 2px;
 	margin-left: auto;
-	font-weight: regular;
+	font-weight: normal;
 	font-size: var(--font-size-xs, 12px);
 	text-transform: uppercase;
 	opacity: 0.8;

@@ -25,6 +25,9 @@ class Mai_Table_Of_Contents {
 				'open'     => get_option( 'options_maitoc_open', true ),
 				'headings' => get_option( 'options_maitoc_headings', 2 ),
 				'style'    => get_option( 'options_maitoc_style', '' ), // Default is empty.
+				'label'    => get_option( 'options_maitoc_label', __( 'Table of Contents', 'mai-table-of-contents' ) ),
+				'hide'     => get_option( 'options_maitoc_hide', __( '[Hide]', 'mai-table-of-contents' ) ),
+				'show'     => get_option( 'options_maitoc_show', __( '[Show]', 'mai-table-of-contents' ) ),
 				'class'    => '',
 				'align'    => '', // Accepts "wide".
 			],
@@ -38,6 +41,9 @@ class Mai_Table_Of_Contents {
 			'open'     => rest_sanitize_boolean( $args['open'] ),
 			'headings' => absint( $args['headings'] ),
 			'style'    => sanitize_html_class( $args['style'] ),
+			'label'    => wp_kses_post( $args['label'] ),
+			'hide'     => wp_kses_post( $args['hide'] ),
+			'show'     => wp_kses_post( $args['show'] ),
 			'class'    => esc_attr( $args['class'] ),
 			'align'    => esc_attr( $args['align'] ),
 		];
@@ -133,25 +139,27 @@ class Mai_Table_Of_Contents {
 	 */
 	function get_toc() {
 		static $cache = [];
-		$post_id      = $this->post_id;
 
-		if ( isset( $cache[ $this->post_id ] ) ) {
-			return $cache[ $this->post_id ];
+		// Build has from args.
+		$hash = md5( json_encode( $this->args ) );
+
+		if ( isset( $cache[ $hash ] ) ) {
+			return $cache[ $hash ];
 		}
 
-		$cache[ $this->post_id ] = '';
+		$cache[ $hash ] = '';
 
 		if ( ! $this->content ) {
-			return $cache[ $this->post_id ];
+			return $cache[ $hash ];
 		}
 
 		if ( ! $this->data['matches'] ) {
-			return $cache[ $this->post_id ];
+			return $cache[ $hash ];
 		}
 
 		// Bail if not enough h2s.
 		if ( count( $this->data['matches'] ) < $this->args['headings'] ) {
-			return $cache[ $this->post_id ];
+			return $cache[ $hash ];
 		}
 
 		// Adds inline CSS.
@@ -218,9 +226,9 @@ class Mai_Table_Of_Contents {
 		$html .= '</div>';
 
 		// Store in cache.
-		$cache[ $this->post_id ] = $html;
+		$cache[ $hash ] = $html;
 
-		return $cache[ $this->post_id ];
+		return $cache[ $hash ];
 	}
 
 	/**
@@ -432,6 +440,18 @@ class Mai_Table_Of_Contents {
 			'hide'  => __( '[Hide]', 'mai-table-of-contents' ),
 			'show'  => __( '[Show]', 'mai-table-of-contents' ),
 		];
+
+		if ( $this->args['label'] ) {
+			$labels['label'] = $this->args['label'];
+		}
+
+		if ( $this->args['hide'] ) {
+			$labels['hide'] = $this->args['hide'];
+		}
+
+		if ( $this->args['show'] ) {
+			$labels['show'] = $this->args['show'];
+		}
 
 		$labels = apply_filters( 'mai_table_of_contents_labels', $labels );
 
