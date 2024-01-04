@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.6.0 (1/4/23)
+## 1.6.0 (1/4/24)
 * Added: New settings for TOC label and hide/show text.
 * Fixed: Wrong font-weight name for the TOC toggle (now using normal instead of regular).
 
