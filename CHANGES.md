@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.1 (1/10/24)
+* Fixed: PHP warning when during sanitization when label/hide/show text fields are empty.
+
 ## 1.6.0 (1/4/24)
 * Added: New settings for TOC label and hide/show text.
 * Fixed: Wrong font-weight name for the TOC toggle (now using normal instead of regular).
