@@ -41,9 +41,9 @@ class Mai_Table_Of_Contents {
 			'open'     => rest_sanitize_boolean( $args['open'] ),
 			'headings' => absint( $args['headings'] ),
 			'style'    => sanitize_html_class( $args['style'] ),
-			'label'    => wp_kses_post( $args['label'] ),
-			'hide'     => wp_kses_post( $args['hide'] ),
-			'show'     => wp_kses_post( $args['show'] ),
+			'label'    => wp_kses_post( (string) $args['label'] ), // Can't pass null.
+			'hide'     => wp_kses_post( (string) $args['hide'] ), // Can't pass null.
+			'show'     => wp_kses_post( (string) $args['show'] ), // Can't pass null.
 			'class'    => esc_attr( $args['class'] ),
 			'align'    => esc_attr( $args['align'] ),
 		];
