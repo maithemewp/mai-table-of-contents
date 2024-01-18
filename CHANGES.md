@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.2 (1/18/24)
+* Fixed: Remove unnecessary encoding in PHP's DOMDocument which was unintentionally encoding some special characters from non-English languages.
+
 ## 1.6.1 (1/10/24)
 * Fixed: PHP warning when during sanitization when label/hide/show text fields are empty.
 
