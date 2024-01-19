@@ -281,6 +281,9 @@ class Mai_Table_Of_Contents {
 		// Set HTML content.
 		$html = $this->content;
 
+		// Encode.
+		$html = mb_encode_numericentity( $html, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
+
 		// Load the content in the document HTML.
 		$dom->loadHTML( "<div>$html</div>" );
 
@@ -354,6 +357,7 @@ class Mai_Table_Of_Contents {
 		if ( count( $data['matches'] ) >= $this->args['headings'] ) {
 			// Store TOC in new content.
 			$data['content'] = $dom->saveHTML();
+			$data['content'] = mb_convert_encoding( $data['content'], 'UTF-8', 'HTML-ENTITIES' );
 		}
 		// Not enough headings.
 		else {
