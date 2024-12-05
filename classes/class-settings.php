@@ -40,6 +40,10 @@ class Mai_Table_Of_Contents_Settings {
 	 * @return array
 	 */
 	function get_post_types( $field ) {
+		if ( ! is_admin() ) {
+			return $field;
+		}
+
 		// Reset choices.
 		$field['choices'] = [];
 

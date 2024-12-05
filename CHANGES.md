@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.4 (12/5/24)
+* Changed: Updated the updater.
+* Changed: [Performance] Only run ACF filters in back end.
+
 ## 1.6.3 (1/19/24)
 * Fixed: Encoded special characters were displaying on the front end in some configurations.
 

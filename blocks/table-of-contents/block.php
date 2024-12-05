@@ -112,7 +112,6 @@ function mai_register_toc_field_group() {
 					'label'             => __( 'Label', 'mai-table-of-contents' ),
 					'name'              => 'maitoc_label',
 					'type'              => 'text',
-					'required'          => 1,
 					'conditional_logic' => [
 						[
 							[
