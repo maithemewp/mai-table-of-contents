@@ -73,6 +73,7 @@ function maitoc_mai_publisher_page_ads( $ads ) {
 	// Loop through page ads.
 	foreach( $ads as $ad ) {
 		// Skip if content doesn't have a TOC.
+		// It's already parsed at this point, so we can't use has_block().
 		if ( ! str_contains( $ad['content'], 'mai-toc__summary' ) ) {
 			continue;
 		}
@@ -83,6 +84,7 @@ function maitoc_mai_publisher_page_ads( $ads ) {
 		// Set flag.
 		$has_run = true;
 
+		// Break out of loop.
 		break;
 	}
 
