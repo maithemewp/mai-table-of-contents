@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.5 (1/13/25)
+* Fixed: [Compatibility] Added better compatibility with Mai Custom Content Areas for instances where a TOC is added via a Content Area.
+
 ## 1.6.4 (12/5/24)
 * Changed: Updated the updater.
 * Changed: [Performance] Only run ACF filters in back end.
