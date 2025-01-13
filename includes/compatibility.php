@@ -28,13 +28,15 @@ add_action( 'maicca_cca', 'maitoc_maicca_cca' );
  * This function checks if the 'acf/mai-table-of-contents' block is present
  * in the content and adds a filter to indicate that a custom TOC is used.
  *
+ * @since 1.6.5
+ *
  * @param array $args Arguments containing the content to check.
  */
 function maitoc_maicca_cca( $args ) {
-	static $first = true;
+	static $has_run = false;
 
 	// Bail if already ran.
-	if ( ! $first ) {
+	if ( $has_run ) {
 		return;
 	}
 
@@ -43,13 +45,46 @@ function maitoc_maicca_cca( $args ) {
 		return;
 	}
 
-	/**
-	 * Tell Mai Table of Contents that we have a custom TOC.
-	 *
-	 * @param bool $has_custom Whether or not we have a custom TOC.
-	 * @param int  $post_id    The post ID.
-	 *
-	 * @return bool
-	 */
+	// Add the custom TOC filter.
 	add_filter( 'mai_table_of_contents_has_custom', '__return_true' );
+
+	// Set flag.
+	$has_run = true;
+}
+
+add_filter( 'mai_publisher_page_ads', 'maitoc_mai_publisher_page_ads' );
+/**
+ * Adds a custom TOC filter if the block is present.
+ *
+ * @since 1.6.5
+ *
+ * @param array $ads The existing ads.
+ *
+ * @return array
+ */
+function maitoc_mai_publisher_page_ads( $ads ) {
+	static $has_run = false;
+
+	// Bail if already ran.
+	if ( $has_run ) {
+		return $ads;
+	}
+
+	// Loop through page ads.
+	foreach( $ads as $ad ) {
+		// Skip if content doesn't have a TOC.
+		if ( ! str_contains( $ad['content'], 'mai-toc__summary' ) ) {
+			continue;
+		}
+
+		// Add the custom TOC filter.
+		add_filter( 'mai_table_of_contents_has_custom', '__return_true' );
+
+		// Set flag.
+		$has_run = true;
+
+		break;
+	}
+
+	return $ads;
 }
