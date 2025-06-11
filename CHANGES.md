@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.6.5 (1/13/25)
+## 1.6.5 (6/11/25)
 * Fixed: [Compatibility] Added better compatibility with Mai Custom Content Areas for instances where a TOC is added via a Content Area.
 
 ## 1.6.4 (12/5/24)
