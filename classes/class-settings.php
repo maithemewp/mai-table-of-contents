@@ -233,10 +233,11 @@ class Mai_Table_Of_Contents_Settings {
 	 * @return array
 	 */
 	function add_settings_link( $actions, $plugin_file, $plugin_data, $context ) {
-		$url                 = admin_url( sprintf( '%s.php?page=mai-table-of-contents', class_exists( 'Mai_Engine' ) ? 'admin' : 'options-general' ) );
-		$link                = sprintf( '<a href="%s">%s</a>', $url, __( 'Settings', 'mai-table-of-contents' ) );
-		$actions['settings'] = $link;
+		$url    = admin_url( sprintf( '%s.php?page=mai-table-of-contents', class_exists( 'Mai_Engine' ) ? 'admin' : 'options-general' ) );
+		$custom = [
+			'settings' => sprintf( '<a href="%s">%s</a>', $url, __( 'Settings', 'mai-table-of-contents' ) ),
+		];
 
-		return $actions;
+		return array_merge( $custom, $actions );
 	}
 }
