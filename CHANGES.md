@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.6 (5/27/26)
+* Changed: Updated blocks to Block API v3 for WP 6.9 compatibility.
+
 ## 1.6.5 (6/11/25)
 * Fixed: [Compatibility] Added better compatibility with Mai Custom Content Areas for instances where a TOC is added via a Content Area.
 
