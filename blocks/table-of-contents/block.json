@@ -1,5 +1,4 @@
 {
-	"apiVersion": 3,
 	"name": "acf/mai-table-of-contents",
 	"title": "Mai Table of Contents",
 	"description": "A table of contents block.",
@@ -9,7 +8,7 @@
 	"textdomain": "mai-table-of-contents",
 	"editorStyle": "file:../../assets/css/mai-table-of-contents.min.css",
 	"acf": {
-		"mode": "preview",
+		"blockVersion": 3,
 		"renderCallback": "mai_do_toc_block"
 	},
 	"supports": {
