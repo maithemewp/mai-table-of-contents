@@ -272,39 +272,7 @@ class Mai_Table_Of_Contents {
 			return $data;
 		}
 
-		// Create the new document.
-		$dom = new DOMDocument();
-
-		// Modify state.
-		$libxml_previous_state = libxml_use_internal_errors( true );
-
-		// Set HTML content.
-		$html = $this->content;
-
-		// Encode.
-		$html = mb_encode_numericentity( $html, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
-
-		// Load the content in the document HTML.
-		$dom->loadHTML( "<div>$html</div>" );
-
-		// Handle wraps.
-		$container = $dom->getElementsByTagName('div')->item(0);
-		$container = $container->parentNode->removeChild( $container );
-
-		while ( $dom->firstChild ) {
-			$dom->removeChild( $dom->firstChild );
-		}
-
-		while ( $container->firstChild ) {
-			$dom->appendChild( $container->firstChild );
-		}
-
-		// Handle errors.
-		libxml_clear_errors();
-
-		// Restore.
-		libxml_use_internal_errors( $libxml_previous_state );
-
+		$dom   = maitoc_get_dom_document( $this->content );
 		$xpath = new DOMXPath( $dom );
 		$h2h3  = $xpath->query( '//h2 | //h3' );
 
@@ -356,8 +324,7 @@ class Mai_Table_Of_Contents {
 		// If we have the minimum h2 headings.
 		if ( count( $data['matches'] ) >= $this->args['headings'] ) {
 			// Store TOC in new content.
-			$data['content'] = $dom->saveHTML();
-			$data['content'] = mb_convert_encoding( $data['content'], 'UTF-8', 'HTML-ENTITIES' );
+			$data['content'] = maitoc_get_dom_html( $dom );
 		}
 		// Not enough headings.
 		else {
