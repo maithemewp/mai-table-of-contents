@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.8 (TBD)
+* Fixed: [Security] Hardened content rendering so markup that was escaped in the editor stays escaped on the front end.
+
 ## 1.6.7 (5/27/26)
 * Changed: Updated the updater for PHP 8.4 support.
 
