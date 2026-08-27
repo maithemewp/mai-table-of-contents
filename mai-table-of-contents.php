@@ -5,6 +5,7 @@
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
  * Description:     Automatically create a table of contents from headings in your posts.
  * Version:         1.6.7
+ * Requires PHP:    8.1
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
